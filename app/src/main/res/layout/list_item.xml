@@ -5,9 +5,11 @@
     android:layout_height="wrap_content"
     android:minHeight="@dimen/list_item_height"
     android:background="#2A617D"
+    android:layout_marginTop="4dp"
     >
 
     <TextView
+        android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_height"
         android:textColor="#FFFFFF"
@@ -15,6 +17,7 @@
         android:textAllCaps="true"
         android:textSize="20sp"
         android:gravity="center"
+
         />
 
 </LinearLayout>

@@ -131,6 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
         if(TextUtils.isEmpty(name) || TextUtils.isEmpty(studentNumber) || TextUtils.isEmpty(emailId) ||
                 TextUtils.isEmpty(password)) {
             Toast.makeText(this,"Please enter all details",Toast.LENGTH_LONG).show();
+            mProgressDialog.dismiss();
         }
         else {
             mAuth.createUserWithEmailAndPassword(emailId, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

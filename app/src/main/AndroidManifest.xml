@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.fireapp"
-
-    >
+    package="com.example.android.fireapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -17,9 +15,7 @@
         android:label="NUS SPORTS UPDATE"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-
-        >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="NUS SPORTS UPDATE">
@@ -34,12 +30,11 @@
             android:label="SIGN UP" />
         <activity
             android:name=".LoginActivity"
-            android:label="LOGIN"
-            />
+            android:label="LOGIN" />
         <activity
             android:name=".CreateTournamentActivity"
-            android:label="CREATE TOURNAMENT"
-            ></activity>
+            android:label="CREATE TOURNAMENT" />
+        <activity android:name=".SportsListActivity"></activity>
     </application>
 
 </manifest>

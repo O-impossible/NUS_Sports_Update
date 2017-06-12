@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -26,7 +27,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-//Sashankh
 public class MainActivity extends AppCompatActivity {
 
     private TextView mWelcomeUserMessage;
@@ -70,8 +70,15 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Main Activity", tournamentInformation.getTournamentName());
                 }
 
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, tournamentNamesList);
-                tournamentListView.setAdapter(arrayAdapter);
+                StringAdapter stringAdapter = new StringAdapter(MainActivity.this,tournamentNamesList);
+                tournamentListView.setAdapter(stringAdapter);
+
+                tournamentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+                });
             }
 
             @Override
