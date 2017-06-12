@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         tournamentListView.setEmptyView(emptyView);
 
         final ArrayList<String> tournamentNamesList = new ArrayList<String>();
-        DatabaseReference tournamentRef = mDatabase.child("Tournaments");
+        final DatabaseReference tournamentRef = mDatabase.child("Tournaments");
         tournamentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -76,7 +76,10 @@ public class MainActivity extends AppCompatActivity {
                 tournamentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                        Intent intent = new Intent(MainActivity.this,SportsListActivity.class);
+//                        intent.putExtra("tournamentId",tournamentRef.getKey());
+//                        Log.d("Tournament ID:",tournamentRef.getKey());
+                        startActivity(intent);
                     }
                 });
             }
