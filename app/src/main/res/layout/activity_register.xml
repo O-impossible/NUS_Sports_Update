@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+    tools:context="com.example.android.fireapp.RegisterActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:text="Fill up your particulars :-"
+        />
+
+    <EditText
+        android:id="@+id/signup_name_text_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Full Name"
+        android:inputType="text"
+        />
+    <EditText
+        android:id="@+id/signup_student_number_text_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Student Number"
+        android:inputType="text"
+    />
+
+    />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Faculty:"
+            android:textSize="19sp"
+            />
+        <Spinner
+            android:id="@+id/faculty_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="15dp"
+            />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/signup_email_text_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email ID"
+        android:layout_marginTop="8dp"
+        android:inputType="textEmailAddress"
+        />
+    <EditText
+        android:id="@+id/signup_password_text_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:layout_marginTop="8dp"
+        android:inputType="textPassword"
+        />
+    <Button
+        android:id="@+id/sign_up_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:text="Sign Up"
+        />
+
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_faculty_options">
+        <item>@string/faculty_biz</item>
+        <item>@string/faculty_computing</item>
+        <item>@string/faculty_dentistry</item>
+        <item>@string/faculty_engin</item>
+        <item>@string/faculty_fass</item>
+        <item>@string/faculty_law</item>
+        <item>@string/faculty_medicine</item>
+        <item>@string/faculty_science</item>
+        <item>@string/faculty_usp</item>
+    </string-array>
+
+
+</resources>

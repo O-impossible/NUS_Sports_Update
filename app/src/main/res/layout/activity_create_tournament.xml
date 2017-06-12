@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.example.android.fireapp.CreateTournamentActivity"
+        android:layout_width="344dp"
+        android:layout_height="495dp"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Tournament Details:-"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            />
+        <EditText
+            android:id="@+id/tournament_name_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tournament Name"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose Sports:-"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/badminton_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Badminton"
+                />
+            <CheckBox
+                android:id="@+id/basketball_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Basketball"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="63dp"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/contract_bridge_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contract Bridge"
+                />
+            <CheckBox
+                android:id="@+id/dodgeball_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dodgeball"
+                android:layout_marginRight="65dp"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/dota2_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dota2"
+                />
+            <CheckBox
+                android:id="@+id/floorball_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Floorball"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="74dp"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/handball_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Handball (Men)"
+                />
+            <CheckBox
+                android:id="@+id/chess_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="International Chess"
+                android:layout_marginRight="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/netball_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Netball (Women)"
+                />
+            <CheckBox
+                android:id="@+id/reversi_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reversi"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="82dp"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/road_relay_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Road Relay"
+                />
+            <CheckBox
+                android:id="@+id/soccer_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Soccer"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="84dp"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/table_tennis_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Table Tennis"
+                />
+            <CheckBox
+                android:id="@+id/tchoukball_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tchoukball"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="58dp"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/tennis_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tennis"
+                />
+            <CheckBox
+                android:id="@+id/touch_football_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Touch Football"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="33dp"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/ultimate_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ultimate Frisbee"
+                />
+            <CheckBox
+                android:id="@+id/volleyball_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Volleyball"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="67dp"
+                />
+        </RelativeLayout>
+    <Button
+        android:id="@+id/create_tournament_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"
+        android:text="Create\nTournament"
+        />
+
+</LinearLayout>
+
