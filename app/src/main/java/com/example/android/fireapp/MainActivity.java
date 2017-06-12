@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         //list view to be populated with tournament data
         final ListView tournamentListView = (ListView) findViewById(R.id.list);
 
-        //finding and setting the empty view in the listView when the list has 0 items
+        //finding and setting the empty view in the listView when the list has 0 items- ok
         View emptyView = findViewById(R.id.empty_view);
         tournamentListView.setEmptyView(emptyView);
 
