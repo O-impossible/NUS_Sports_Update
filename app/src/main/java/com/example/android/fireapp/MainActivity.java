@@ -1,9 +1,7 @@
 package com.example.android.fireapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringDef;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,12 +11,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.data.DataBufferObserverSet;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView mWelcomeUserMessage;
@@ -43,23 +41,29 @@ public class MainActivity extends AppCompatActivity {
     private String userName;
     private String userId = null;
 
+    public static String tournamentId;
+    public static final String EXTRA_MESSAGE = "tournamentId";
+
     @Override
     protected void onStart() {
-        super.onStart();
         mAuth.addAuthStateListener(mAuthStatelistener);
         populateListView();
+        super.onStart();
     }
 
     private void populateListView() {
-        //list view to be populated with tournament data
-        final ListView tournamentListView = (ListView) findViewById(R.id.list);
+        //tournament_list view to be populated with tournament data
+        final ListView tournamentListView = (ListView) findViewById(R.id.tournament_list);
 
-        //finding and setting the empty view in the listView when the list has 0 items
+        //finding and setting the empty view in the listView when the tournament_list has 0 items
         View emptyView = findViewById(R.id.empty_view);
         tournamentListView.setEmptyView(emptyView);
 
         final ArrayList<String> tournamentNamesList = new ArrayList<String>();
         final DatabaseReference tournamentRef = mDatabase.child("Tournaments");
+
+        final HashMap<String,String> nameIdMatcher = new HashMap<>();
+
         tournamentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,18 +71,25 @@ public class MainActivity extends AppCompatActivity {
                     TournamentInformation tournamentInformation = new TournamentInformation();
                     tournamentInformation.setTournamentName(tournament.getValue(TournamentInformation.class).getTournamentName());
                     tournamentNamesList.add(tournamentInformation.getTournamentName());
+
+                    nameIdMatcher.put(tournamentInformation.getTournamentName(),tournament.getKey());
+                    Log.d("Tournament Id:",tournament.getKey());
                     Log.d("Main Activity", tournamentInformation.getTournamentName());
                 }
 
-                StringAdapter stringAdapter = new StringAdapter(MainActivity.this,tournamentNamesList);
+                StringAdapter stringAdapter = new StringAdapter(MainActivity.this,tournamentNamesList,R.color.tournament_name_list);
                 tournamentListView.setAdapter(stringAdapter);
 
                 tournamentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(MainActivity.this,SportsListActivity.class);
-//                        intent.putExtra("tournamentId",tournamentRef.getKey());
-//                        Log.d("Tournament ID:",tournamentRef.getKey());
+                        String tournamentName = tournamentNamesList.get(position);
+
+                        tournamentId = nameIdMatcher.get(tournamentName);
+                        Log.d("TournamentName(onclick)",tournamentName);
+                        Log.d("TournamentId(onclick)",tournamentId);
+                        intent.putExtra(EXTRA_MESSAGE,tournamentId);
                         startActivity(intent);
                     }
                 });
@@ -117,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mAuth = FirebaseAuth.getInstance();
+        populateListView();
 
         mAuthStatelistener = new FirebaseAuth.AuthStateListener() {
             @Override

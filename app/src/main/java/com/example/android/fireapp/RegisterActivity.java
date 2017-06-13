@@ -72,12 +72,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void setupSpinner() {
-        // Create adapter for spinner. The list options are from the String array it will use
+        // Create adapter for spinner. The tournament_list options are from the String array it will use
         // the spinner will use the default layout
         ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.array_faculty_options, android.R.layout.simple_spinner_item);
 
-        // Specify dropdown layout style - simple list view with 1 item per line
+        // Specify dropdown layout style - simple tournament_list view with 1 item per line
         genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         // Apply the adapter to the spinner

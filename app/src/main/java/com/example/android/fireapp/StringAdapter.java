@@ -17,9 +17,15 @@ import java.util.ArrayList;
  */
 
 public class StringAdapter extends ArrayAdapter {
+    private int bgColor;
 
     public StringAdapter(Activity context, ArrayList<String> words){
         super(context, 0, words);
+    }
+
+    public StringAdapter(Activity context, ArrayList<String> words, int bgColor){
+        super(context, 0, words);
+        this.bgColor=bgColor;
     }
 
     @NonNull
