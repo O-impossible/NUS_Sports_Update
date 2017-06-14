@@ -205,7 +205,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_gravity="center"
-        android:text="Create\nTournament"
+        android:textAllCaps="true"
+        android:text="create\ntournament"
         />
 
 </LinearLayout>

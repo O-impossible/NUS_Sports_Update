@@ -32,9 +32,13 @@ public class MainActivity extends AppCompatActivity {
     private Button mLogInButton;
     private Button mSignUpButton;
 
+    private boolean GOD_MODE;
+    private boolean ORGANIZER_MODE;
+    private boolean PARTICIPANT_MODE;
+
     private FloatingActionButton mFab;
 
-    private FirebaseAuth.AuthStateListener mAuthStatelistener;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        mAuth.addAuthStateListener(mAuthStatelistener);
+        mAuth.addAuthStateListener(mAuthStateListener);
         populateListView();
         super.onStart();
     }
@@ -118,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         mWelcomeUserMessage = (TextView) findViewById(R.id.welcome_text_view);
         mLogOutButton = (Button) findViewById(R.id.log_out_button);
 
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab = (FloatingActionButton) findViewById(R.id.fab_add_tournament);
 
         mLogOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         populateListView();
 
-        mAuthStatelistener = new FirebaseAuth.AuthStateListener() {
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 //if user is logged in, the sign_in and sing_up buttons should not be displayed
@@ -152,12 +156,16 @@ public class MainActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             UserInformation user = dataSnapshot.getValue(UserInformation.class);
                             if (user.isGod()) {
+                                GOD_MODE=true;
+                                PARTICIPANT_MODE=false;
+                                ORGANIZER_MODE=false;
+
                                 invalidateOptionsMenu();
                             } else {
                                 //debugging message
                                 Log.d("Main Activity", "Floating Action Button made invisible");
 
-                                mFab.setVisibility(View.INVISIBLE);
+                                mFab.setVisibility(View.GONE);
                             }
                         }
 
@@ -201,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //on clicking the fab, create_tournament activity is started
+        //on clicking the fab_add_tournament, create_tournament activity is started
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (userId != null) {
+        if (userId != null && !(GOD_MODE)) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.main_menu, menu);
         }

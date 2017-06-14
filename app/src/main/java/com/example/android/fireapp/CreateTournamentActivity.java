@@ -10,8 +10,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -61,6 +64,9 @@ public class CreateTournamentActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
 
+    private boolean editMode = true;
+    private String tournamentId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +87,7 @@ public class CreateTournamentActivity extends AppCompatActivity {
         mNetballCheckbox = (CheckBox) findViewById(R.id.netball_checkbox);
         mReversiCheckbox = (CheckBox) findViewById(R.id.reversi_checkbox);
         mRoadRelayCheckbox = (CheckBox) findViewById(R.id.road_relay_checkbox);
-        mSoccerCheckbox =  (CheckBox) findViewById(R.id.soccer_checkbox);
+        mSoccerCheckbox = (CheckBox) findViewById(R.id.soccer_checkbox);
         mTableTennisCheckbox = (CheckBox) findViewById(R.id.table_tennis_checkbox);
         mTchoukballCheckbox = (CheckBox) findViewById(R.id.tchoukball_checkbox);
         mTennisCheckbox = (CheckBox) findViewById(R.id.tennis_checkbox);
@@ -90,13 +96,16 @@ public class CreateTournamentActivity extends AppCompatActivity {
         mVolleyballCheckbox = (CheckBox) findViewById(R.id.volleyball_checkbox);
 
         mCreateTournamentButton = (Button) findViewById(R.id.create_tournament_button);
+
         mCreateTournamentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createTournament();
             }
         });
+
     }
+
 
     private void createTournament() {
         String tournamentName = mTournamentName.getText().toString().trim();
@@ -120,62 +129,37 @@ public class CreateTournamentActivity extends AppCompatActivity {
         ultimate = mUltimateCheckbox.isChecked();
         volleyball = mVolleyballCheckbox.isChecked();
 
-        HashMap<String,Object> tournamentDetails = new HashMap<>();
+        HashMap<String, Object> tournamentDetails = new HashMap<>();
 
-        tournamentDetails.put("tournamentName",tournamentName);
+        tournamentDetails.put("tournamentName", tournamentName);
 
-        tournamentDetails.put("badminton",badminton);
+        tournamentDetails.put("badminton", badminton);
         tournamentDetails.put("basketball", basketball);
-        tournamentDetails.put("contractBridge",contractBridge);
-        tournamentDetails.put("chess",chess);
-        tournamentDetails.put("dodgeball",dodgeball);
-        tournamentDetails.put("dota2",dota2);
-        tournamentDetails.put("floorball",floorball);
-        tournamentDetails.put("handball",handball);
-        tournamentDetails.put("netball",netball);
-        tournamentDetails.put("reversi",reversi);
-        tournamentDetails.put("roadRelay",roadRelay);
-        tournamentDetails.put("soccer",soccer);
-        tournamentDetails.put("tableTennis",tableTennis);
-        tournamentDetails.put("tchoukball",tchoukball);
-        tournamentDetails.put("tennis",tennis);
-        tournamentDetails.put("touchFootball",touchFootball);
-        tournamentDetails.put("ultimate",ultimate);
-        tournamentDetails.put("volleyball",volleyball);
+        tournamentDetails.put("contractBridge", contractBridge);
+        tournamentDetails.put("chess", chess);
+        tournamentDetails.put("dodgeball", dodgeball);
+        tournamentDetails.put("dota2", dota2);
+        tournamentDetails.put("floorball", floorball);
+        tournamentDetails.put("handball", handball);
+        tournamentDetails.put("netball", netball);
+        tournamentDetails.put("reversi", reversi);
+        tournamentDetails.put("roadRelay", roadRelay);
+        tournamentDetails.put("soccer", soccer);
+        tournamentDetails.put("tableTennis", tableTennis);
+        tournamentDetails.put("tchoukball", tchoukball);
+        tournamentDetails.put("tennis", tennis);
+        tournamentDetails.put("touchFootball", touchFootball);
+        tournamentDetails.put("ultimate", ultimate);
+        tournamentDetails.put("volleyball", volleyball);
 
         DatabaseReference newRef = mDatabase.push();
-        final String tournamentId = newRef.getKey();
 
         newRef.setValue(tournamentDetails);
-/*
 
-        //add the tournament name to database ref
-        mDatabase.child("tournamentName").setValue(tournamentName);
-        //add the sports to the database ref
-        mDatabase.child("badminton").setValue(badminton);
-        mDatabase.child("basketball").setValue(basketball);
-        mDatabase.child("contractBridge").setValue(contractBridge);
-        mDatabase.child("chess").setValue(chess);
-        mDatabase.child("dodgeball").setValue(dodgeball);
-        mDatabase.child("dota2").setValue(dota2);
-        mDatabase.child("floorball").setValue(floorball);
-        mDatabase.child("handball").setValue(handball);
-        mDatabase.child("netball").setValue(netball);
-        mDatabase.child("reversi").setValue(reversi);
-        mDatabase.child("roadRelay").setValue(roadRelay);
-        mDatabase.child("soccer").setValue(soccer);
-        mDatabase.child("tableTennis").setValue(tableTennis);
-        mDatabase.child("tchoukball").setValue(tchoukball);
-        mDatabase.child("tennis").setValue(tennis);
-        mDatabase.child("touchFootball").setValue(touchFootball);
-        mDatabase.child("ultimate").setValue(ultimate);
-        mDatabase.child("volleyball").setValue(volleyball);
-*/
-
-        Toast.makeText(CreateTournamentActivity.this,"Tournament Successfully Added",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(CreateTournamentActivity.this,MainActivity.class);
+        Toast.makeText(CreateTournamentActivity.this, "Tournament Successfully Added", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(CreateTournamentActivity.this, MainActivity.class);
         startActivity(intent);
 
-        Log.d("Main Activity","Tournament Created - No glitch");
+        Log.d("Main Activity", "Tournament Created - No glitch");
     }
 }

@@ -3,6 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="tournament_name_list">#2A617D</color>
-    <color name="sports_list">#DBF6BC</color>
+    <color name="tournament_name_list">#E74949</color>
+    <color name="sports_list">#00897B</color>
 </resources>

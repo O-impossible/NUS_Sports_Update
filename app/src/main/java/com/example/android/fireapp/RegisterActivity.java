@@ -140,16 +140,14 @@ public class RegisterActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         String userId = mAuth.getCurrentUser().getUid();
 
-                        ArrayList<String> participatingIn = new ArrayList<String>();
-                        ArrayList<String> isOrganizing = new ArrayList<String>();
                         DatabaseReference currentUser = mDatabase.child(userId);
                         currentUser.child("name").setValue(name);
                         currentUser.child("studentNumber").setValue(studentNumber);
                         currentUser.child("faculty").setValue(mFaculty);
                         currentUser.child("email").setValue(emailId);
                         currentUser.child("isGod").setValue(false);
-                        //currentUser.child("participatingIn").setValue(participatingIn);
-                        //currentUser.child("isOrganizing").setValue(isOrganizing);
+                        currentUser.child("participatingIn");
+                        currentUser.child("isOrganizing");
 
                         Toast.makeText(RegisterActivity.this,"User successfully registered\nLogged in as "+name,Toast.LENGTH_SHORT).show();
                         mProgressDialog.dismiss();

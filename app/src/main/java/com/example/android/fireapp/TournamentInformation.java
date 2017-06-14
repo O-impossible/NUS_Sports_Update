@@ -38,15 +38,13 @@ public class TournamentInformation {
         this.tournamentName = tournamentName;
     }
 
-    public boolean isBadminton() {
-        return badminton;
-    }
+    public boolean hasBadminton() {  return badminton;   }
 
     public void setBadminton(boolean badminton) {
         this.badminton = badminton;
     }
 
-    public boolean isBasketball() {
+    public boolean hasBasketball() {
         return basketball;
     }
 
@@ -54,7 +52,7 @@ public class TournamentInformation {
         this.basketball = basketball;
     }
 
-    public boolean isContractBridge() {
+    public boolean hasContractBridge() {
         return contractBridge;
     }
 
@@ -62,7 +60,7 @@ public class TournamentInformation {
         this.contractBridge = contractBridge;
     }
 
-    public boolean isDodgeball() {
+    public boolean hasDodgeball() {
         return dodgeball;
     }
 
@@ -70,7 +68,7 @@ public class TournamentInformation {
         this.dodgeball = dodgeball;
     }
 
-    public boolean isDota2() {
+    public boolean hasDota2() {
         return dota2;
     }
 
@@ -78,7 +76,7 @@ public class TournamentInformation {
         this.dota2 = dota2;
     }
 
-    public boolean isFloorball() {
+    public boolean hasFloorball() {
         return floorball;
     }
 
@@ -86,7 +84,7 @@ public class TournamentInformation {
         this.floorball = floorball;
     }
 
-    public boolean isHandball() {
+    public boolean hasHandball() {
         return handball;
     }
 
@@ -94,7 +92,7 @@ public class TournamentInformation {
         this.handball = handball;
     }
 
-    public boolean isChess() {
+    public boolean hasChess() {
         return chess;
     }
 
@@ -102,7 +100,7 @@ public class TournamentInformation {
         this.chess = chess;
     }
 
-    public boolean isNetball() {
+    public boolean hasNetball() {
         return netball;
     }
 
@@ -110,7 +108,7 @@ public class TournamentInformation {
         this.netball = netball;
     }
 
-    public boolean isReversi() {
+    public boolean hasReversi() {
         return reversi;
     }
 
@@ -118,7 +116,7 @@ public class TournamentInformation {
         this.reversi = reversi;
     }
 
-    public boolean isRoadRelay() {
+    public boolean hasRoadRelay() {
         return roadRelay;
     }
 
@@ -126,7 +124,7 @@ public class TournamentInformation {
         this.roadRelay = roadRelay;
     }
 
-    public boolean isSoccer() {
+    public boolean hasSoccer() {
         return soccer;
     }
 
@@ -134,7 +132,7 @@ public class TournamentInformation {
         this.soccer = soccer;
     }
 
-    public boolean isTableTennis() {
+    public boolean hasTableTennis() {
         return tableTennis;
     }
 
@@ -142,7 +140,7 @@ public class TournamentInformation {
         this.tableTennis = tableTennis;
     }
 
-    public boolean isTchoukball() {
+    public boolean hasTchoukball() {
         return tchoukball;
     }
 
@@ -150,7 +148,7 @@ public class TournamentInformation {
         this.tchoukball = tchoukball;
     }
 
-    public boolean isTennis() {
+    public boolean hasTennis() {
         return tennis;
     }
 
@@ -158,7 +156,7 @@ public class TournamentInformation {
         this.tennis = tennis;
     }
 
-    public boolean isTouchFootball() {
+    public boolean hasTouchFootball() {
         return touchFootball;
     }
 
@@ -166,7 +164,7 @@ public class TournamentInformation {
         this.touchFootball = touchFootball;
     }
 
-    public boolean isUltimate() {
+    public boolean hasUltimate() {
         return ultimate;
     }
 
@@ -174,7 +172,7 @@ public class TournamentInformation {
         this.ultimate = ultimate;
     }
 
-    public boolean isVolleyball() {
+    public boolean hasVolleyball() {
         return volleyball;
     }
 

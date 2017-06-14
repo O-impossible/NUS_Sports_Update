@@ -6,11 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.android.fireapp.SportsListActivity">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ListView
         android:id="@+id/sports_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_edit_tournament"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/edit_icon"
+            />
+    </RelativeLayout>
 </LinearLayout>
