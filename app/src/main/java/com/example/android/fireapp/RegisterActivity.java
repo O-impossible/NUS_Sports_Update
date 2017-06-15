@@ -2,7 +2,6 @@ package com.example.android.fireapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,13 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -38,6 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Spinner mFacultySpinner;
     private String mFaculty;
+    private Spinner mYearSpinner;
+    private int mYear;
 
     private Button mRegisterButton;
 
@@ -57,6 +53,8 @@ public class RegisterActivity extends AppCompatActivity {
         mNameField = (EditText) findViewById(R.id.signup_name_text_field);
         mStudentNumberField = (EditText) findViewById(R.id.signup_student_number_text_field);
         mFacultySpinner = (Spinner) findViewById(R.id.faculty_spinner);
+        mYearSpinner = (Spinner) findViewById(R.id.year_spinner);
+
         mEmailIdField = (EditText) findViewById(R.id.signup_email_text_field);
         mPasswordField = (EditText) findViewById(R.id.signup_password_text_field);
 
@@ -68,20 +66,63 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        setupSpinner();
+        setupFacultySpinner();
+
+        setupYearSpinner();
     }
 
-    private void setupSpinner() {
+    private void setupYearSpinner() {
         // Create adapter for spinner. The tournament_list options are from the String array it will use
         // the spinner will use the default layout
-        ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter yearSpinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.array_year_options, android.R.layout.simple_spinner_item);
+
+        // Specify dropdown layout style - simple tournament_list view with 1 item per line
+        yearSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        // Apply the adapter to the spinner
+        mYearSpinner.setAdapter(yearSpinnerAdapter);
+
+        // Set the integer mSelected to the constant values
+        mYearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selection = (String) parent.getItemAtPosition(position);
+                if (!TextUtils.isEmpty(selection)) {
+                    if (selection.equals(1)) {
+                        mYear = 1;
+                    } else if (selection.equals(2)) {
+                        mYear = 2;
+                    } else if (selection.equals(3)) {
+                        mYear = 3;
+                    } else if (selection.equals(4)) {
+                        mYear = 4;
+                    } else if (selection.equals(5)) {
+                        mYear= 5;
+                    }
+                }
+            }
+
+            // Because AdapterView is an abstract class, onNothingSelected must be defined
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mFaculty = "N/A";
+            }
+        });
+    }
+
+
+    private void setupFacultySpinner() {
+        // Create adapter for spinner. The tournament_list options are from the String array it will use
+        // the spinner will use the default layout
+        ArrayAdapter facultySpinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.array_faculty_options, android.R.layout.simple_spinner_item);
 
         // Specify dropdown layout style - simple tournament_list view with 1 item per line
-        genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        facultySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         // Apply the adapter to the spinner
-        mFacultySpinner.setAdapter(genderSpinnerAdapter);
+        mFacultySpinner.setAdapter(facultySpinnerAdapter);
 
         // Set the integer mSelected to the constant values
         mFacultySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -144,6 +185,7 @@ public class RegisterActivity extends AppCompatActivity {
                         currentUser.child("name").setValue(name);
                         currentUser.child("studentNumber").setValue(studentNumber);
                         currentUser.child("faculty").setValue(mFaculty);
+                        currentUser.child("year").setValue(mYear);
                         currentUser.child("email").setValue(emailId);
                         currentUser.child("isGod").setValue(false);
                         //currentUser.child("tournamentStatuses").setValue(new ArrayList<String>());

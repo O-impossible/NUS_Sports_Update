@@ -11,6 +11,12 @@
         <item>@string/faculty_science</item>
         <item>@string/faculty_usp</item>
     </string-array>
-
+<integer-array name="array_year_options">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+</integer-array>
 
 </resources>

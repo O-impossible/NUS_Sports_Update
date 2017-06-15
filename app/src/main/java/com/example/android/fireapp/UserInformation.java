@@ -11,6 +11,7 @@ public class UserInformation {
     public String name;
     public String studentNumber;
     public String faculty;
+    public int year;
     public boolean isAdmin;
     public String email;
     public boolean isGod;
@@ -52,6 +53,14 @@ public class UserInformation {
 
     public void setFaculty(String faculty) {
         this.faculty = faculty;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public boolean isAdmin() {
