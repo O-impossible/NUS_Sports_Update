@@ -1,9 +1,14 @@
 package com.example.android.fireapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -101,93 +106,75 @@ public class EditTournamentActivity extends AppCompatActivity {
         tournamentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                TournamentInformation tournament = dataSnapshot.getValue(TournamentInformation.class);
-                Log.d("tournamentname(edit)",tournament.getTournamentName());
-                mTournamentName.setText(tournament.getTournamentName());
-                if(tournament.hasBadminton()){ mBadmintonCheckbox.toggle(); }
-                if(tournament.hasBasketball()){ mBasketballCheckbox.toggle(); }
-                if(tournament.hasChess()){ mChessCheckbox.toggle(); }
-                if(tournament.hasContractBridge()){ mContractBridgeCheckbox.toggle(); }
-                if(tournament.hasDodgeball()){ mDodgeballCheckbox.toggle(); }
-                if(tournament.hasDota2()){ mDota2Checkbox.toggle(); }
-                if(tournament.hasFloorball()){ mFloorballCheckbox.toggle(); }
-                if(tournament.hasHandball()){ mHandballCheckbox.toggle(); }
-                if(tournament.hasNetball()){ mNetballCheckbox.toggle(); }
-                if(tournament.hasReversi()){ mReversiCheckbox.toggle(); }
-                if(tournament.hasRoadRelay()){ mRoadRelayCheckbox.toggle(); }
-                if(tournament.hasSoccer()){ mSoccerCheckbox.toggle(); }
-                if(tournament.hasTchoukball()){ mTchoukballCheckbox.toggle(); }
-                if(tournament.hasTableTennis()){ mTableTennisCheckbox.toggle(); }
-                if(tournament.hasTennis()){ mTennisCheckbox.toggle(); }
-                if(tournament.hasTouchFootball()){ mTouchFootballCheckbox.toggle(); }
-                if(tournament.hasUltimate()){ mUltimateCheckbox.toggle(); }
-                if(tournament.hasVolleyball()){ mVolleyballCheckbox.toggle(); }
+                if(dataSnapshot.exists()) {
+                    TournamentInformation tournament = dataSnapshot.getValue(TournamentInformation.class);
+                    Log.d("tournamentname(edit)", tournament.getTournamentName());
+                    mTournamentName.setText(tournament.getTournamentName());
+                    if (tournament.hasBadminton()) {
+                        mBadmintonCheckbox.toggle();
+                    }
+                    if (tournament.hasBasketball()) {
+                        mBasketballCheckbox.toggle();
+                    }
+                    if (tournament.hasChess()) {
+                        mChessCheckbox.toggle();
+                    }
+                    if (tournament.hasContractBridge()) {
+                        mContractBridgeCheckbox.toggle();
+                    }
+                    if (tournament.hasDodgeball()) {
+                        mDodgeballCheckbox.toggle();
+                    }
+                    if (tournament.hasDota2()) {
+                        mDota2Checkbox.toggle();
+                    }
+                    if (tournament.hasFloorball()) {
+                        mFloorballCheckbox.toggle();
+                    }
+                    if (tournament.hasHandball()) {
+                        mHandballCheckbox.toggle();
+                    }
+                    if (tournament.hasNetball()) {
+                        mNetballCheckbox.toggle();
+                    }
+                    if (tournament.hasReversi()) {
+                        mReversiCheckbox.toggle();
+                    }
+                    if (tournament.hasRoadRelay()) {
+                        mRoadRelayCheckbox.toggle();
+                    }
+                    if (tournament.hasSoccer()) {
+                        mSoccerCheckbox.toggle();
+                    }
+                    if (tournament.hasTchoukball()) {
+                        mTchoukballCheckbox.toggle();
+                    }
+                    if (tournament.hasTableTennis()) {
+                        mTableTennisCheckbox.toggle();
+                    }
+                    if (tournament.hasTennis()) {
+                        mTennisCheckbox.toggle();
+                    }
+                    if (tournament.hasTouchFootball()) {
+                        mTouchFootballCheckbox.toggle();
+                    }
+                    if (tournament.hasUltimate()) {
+                        mUltimateCheckbox.toggle();
+                    }
+                    if (tournament.hasVolleyball()) {
+                        mVolleyballCheckbox.toggle();
+                    }
 
 
-                mSaveChangesButton = (Button) findViewById(R.id.save_changes_button);
+                    mSaveChangesButton = (Button) findViewById(R.id.save_changes_button);
 
-        mSaveChangesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editTournament(tournamentRef);
-            }
-        });
-    }
-
-    private void editTournament(DatabaseReference mRef) {
-
-                //create the tournament
-                String tournamentName = mTournamentName.getText().toString().trim();
-
-                badminton = mBadmintonCheckbox.isChecked();
-                basketball = mBasketballCheckbox.isChecked();
-                contractBridge = mContractBridgeCheckbox.isChecked();
-                chess = mChessCheckbox.isChecked();
-                dodgeball = mDodgeballCheckbox.isChecked();
-                dota2 = mDota2Checkbox.isChecked();
-                floorball = mFloorballCheckbox.isChecked();
-                handball = mHandballCheckbox.isChecked();
-                netball = mNetballCheckbox.isChecked();
-                reversi = mReversiCheckbox.isChecked();
-                roadRelay = mRoadRelayCheckbox.isChecked();
-                soccer = mSoccerCheckbox.isChecked();
-                tableTennis = mTableTennisCheckbox.isChecked();
-                tchoukball = mTchoukballCheckbox.isChecked();
-                tennis = mTennisCheckbox.isChecked();
-                touchFootball = mTouchFootballCheckbox.isChecked();
-                ultimate = mUltimateCheckbox.isChecked();
-                volleyball = mVolleyballCheckbox.isChecked();
-
-                HashMap<String, Object> tournamentDetails = new HashMap<>();
-
-                tournamentDetails.put("tournamentName", tournamentName);
-
-                tournamentDetails.put("badminton", badminton);
-                tournamentDetails.put("basketball", basketball);
-                tournamentDetails.put("contractBridge", contractBridge);
-                tournamentDetails.put("chess", chess);
-                tournamentDetails.put("dodgeball", dodgeball);
-                tournamentDetails.put("dota2", dota2);
-                tournamentDetails.put("floorball", floorball);
-                tournamentDetails.put("handball", handball);
-                tournamentDetails.put("netball", netball);
-                tournamentDetails.put("reversi", reversi);
-                tournamentDetails.put("roadRelay", roadRelay);
-                tournamentDetails.put("soccer", soccer);
-                tournamentDetails.put("tableTennis", tableTennis);
-                tournamentDetails.put("tchoukball", tchoukball);
-                tournamentDetails.put("tennis", tennis);
-                tournamentDetails.put("touchFootball", touchFootball);
-                tournamentDetails.put("ultimate", ultimate);
-                tournamentDetails.put("volleyball", volleyball);
-
-                mRef.updateChildren(tournamentDetails);
-
-                Toast.makeText(EditTournamentActivity.this, "Tournament Successfully Edited", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(EditTournamentActivity.this, MainActivity.class);
-                startActivity(intent);
-
-                Log.d("Main Activity", "Tournament Saved - No glitch");
+                    mSaveChangesButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            editTournament(tournamentRef);
+                        }
+                    });
+                }
             }
 
             @Override
@@ -195,4 +182,113 @@ public class EditTournamentActivity extends AppCompatActivity {
         });
     }
 
+    private void editTournament(DatabaseReference mRef) {
+
+        //create the tournament
+        String tournamentName = mTournamentName.getText().toString().trim();
+
+        badminton = mBadmintonCheckbox.isChecked();
+        basketball = mBasketballCheckbox.isChecked();
+        contractBridge = mContractBridgeCheckbox.isChecked();
+        chess = mChessCheckbox.isChecked();
+        dodgeball = mDodgeballCheckbox.isChecked();
+        dota2 = mDota2Checkbox.isChecked();
+        floorball = mFloorballCheckbox.isChecked();
+        handball = mHandballCheckbox.isChecked();
+        netball = mNetballCheckbox.isChecked();
+        reversi = mReversiCheckbox.isChecked();
+        roadRelay = mRoadRelayCheckbox.isChecked();
+        soccer = mSoccerCheckbox.isChecked();
+        tableTennis = mTableTennisCheckbox.isChecked();
+        tchoukball = mTchoukballCheckbox.isChecked();
+        tennis = mTennisCheckbox.isChecked();
+        touchFootball = mTouchFootballCheckbox.isChecked();
+        ultimate = mUltimateCheckbox.isChecked();
+        volleyball = mVolleyballCheckbox.isChecked();
+
+        if(!basketball && !badminton && !contractBridge && !chess && !dodgeball && !dota2 && !floorball && !handball
+                && !netball && !reversi && !roadRelay && !soccer && !tableTennis && !tchoukball && !tennis
+                && !touchFootball && !ultimate && !volleyball) {
+            Toast.makeText(EditTournamentActivity.this,"You must choose at least 1 sport",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        HashMap<String, Object> tournamentDetails = new HashMap<>();
+
+        tournamentDetails.put("tournamentName", tournamentName);
+
+        tournamentDetails.put("badminton", badminton);
+        tournamentDetails.put("basketball", basketball);
+        tournamentDetails.put("contractBridge", contractBridge);
+        tournamentDetails.put("chess", chess);
+        tournamentDetails.put("dodgeball", dodgeball);
+        tournamentDetails.put("dota2", dota2);
+        tournamentDetails.put("floorball", floorball);
+        tournamentDetails.put("handball", handball);
+        tournamentDetails.put("netball", netball);
+        tournamentDetails.put("reversi", reversi);
+        tournamentDetails.put("roadRelay", roadRelay);
+        tournamentDetails.put("soccer", soccer);
+        tournamentDetails.put("tableTennis", tableTennis);
+        tournamentDetails.put("tchoukball", tchoukball);
+        tournamentDetails.put("tennis", tennis);
+        tournamentDetails.put("touchFootball", touchFootball);
+        tournamentDetails.put("ultimate", ultimate);
+        tournamentDetails.put("volleyball", volleyball);
+
+        mRef.updateChildren(tournamentDetails);
+
+        Toast.makeText(EditTournamentActivity.this, "Tournament Successfully Edited", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(EditTournamentActivity.this, MainActivity.class);
+        startActivity(intent);
+
+        Log.d("Main Activity", "Tournament Saved - No glitch");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.delete_tournament_menu,menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id==R.id.delete_tournament_option){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle("Delete Tournament");
+            builder.setMessage("Are you sure you want to delete this tournament?");
+
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+                    // deletes the tournament id and all its contents from the realtime database
+                    Toast.makeText(EditTournamentActivity.this,"Tournament Deleted",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(EditTournamentActivity.this,MainActivity.class);
+                    mDatabase.child(tournamentId).removeValue();
+                    finish();
+                    startActivity(intent);
+                    dialog.dismiss();
+                }
+            });
+
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do nothing
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+
+        return true;
+    }
 }

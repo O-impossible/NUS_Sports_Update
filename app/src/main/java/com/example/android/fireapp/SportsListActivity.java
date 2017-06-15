@@ -80,6 +80,7 @@ public class SportsListActivity extends AppCompatActivity {
                 Intent intentToEditTournament = new Intent(SportsListActivity.this,EditTournamentActivity.class);
                 intentToEditTournament.putExtra(EXTRA_MESSAGE, tournamentId);
                 startActivity(intentToEditTournament);
+                finish();
             }
         });
     }
@@ -100,29 +101,67 @@ public class SportsListActivity extends AppCompatActivity {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                TournamentInformation tournamentInformation = dataSnapshot.getValue(TournamentInformation.class);
-                setTitle(tournamentInformation.getTournamentName());
-                if(tournamentInformation.hasBadminton()){    sportsList.add("Badminton");    }
-                if(tournamentInformation.hasBasketball()){    sportsList.add("Basketball");    }
-                if(tournamentInformation.hasChess()){    sportsList.add("Chess");    }
-                if(tournamentInformation.hasContractBridge()){    sportsList.add("Contract Bridge");    }
-                if(tournamentInformation.hasDodgeball()){    sportsList.add("Dodgeball");    }
-                if(tournamentInformation.hasDota2()){    sportsList.add("Dota 2");    }
-                if(tournamentInformation.hasFloorball()){    sportsList.add("Floorball");    }
-                if(tournamentInformation.hasHandball()){    sportsList.add("Handball");    }
-                if(tournamentInformation.hasNetball()){    sportsList.add("Netball");    }
-                if(tournamentInformation.hasReversi()){    sportsList.add("Reversi");    }
-                if(tournamentInformation.hasRoadRelay()){    sportsList.add("Road Relay");    }
-                if(tournamentInformation.hasSoccer()){    sportsList.add("Soccer");    }
-                if(tournamentInformation.hasTableTennis()){    sportsList.add("Table Tennis");    }
-                if(tournamentInformation.hasTchoukball()){    sportsList.add("Tchoukball");    }
-                if(tournamentInformation.hasTennis()){    sportsList.add("Tennis");    }
-                if(tournamentInformation.hasTouchFootball()){    sportsList.add("Touch Football");    }
-                if(tournamentInformation.hasUltimate()){    sportsList.add("Ultimate Frisbee");    }
-                if(tournamentInformation.hasVolleyball()){    sportsList.add("Volleyball");    }
+                if(dataSnapshot.exists()) {
+                    TournamentInformation tournamentInformation = dataSnapshot.getValue(TournamentInformation.class);
+                    setTitle(tournamentInformation.getTournamentName());
+                    if (tournamentInformation.hasBadminton()) {
+                        sportsList.add("Badminton");
+                    }
+                    if (tournamentInformation.hasBasketball()) {
+                        sportsList.add("Basketball");
+                    }
+                    if (tournamentInformation.hasChess()) {
+                        sportsList.add("Chess");
+                    }
+                    if (tournamentInformation.hasContractBridge()) {
+                        sportsList.add("Contract Bridge");
+                    }
+                    if (tournamentInformation.hasDodgeball()) {
+                        sportsList.add("Dodgeball");
+                    }
+                    if (tournamentInformation.hasDota2()) {
+                        sportsList.add("Dota 2");
+                    }
+                    if (tournamentInformation.hasFloorball()) {
+                        sportsList.add("Floorball");
+                    }
+                    if (tournamentInformation.hasHandball()) {
+                        sportsList.add("Handball");
+                    }
+                    if (tournamentInformation.hasNetball()) {
+                        sportsList.add("Netball");
+                    }
+                    if (tournamentInformation.hasReversi()) {
+                        sportsList.add("Reversi");
+                    }
+                    if (tournamentInformation.hasRoadRelay()) {
+                        sportsList.add("Road Relay");
+                    }
+                    if (tournamentInformation.hasSoccer()) {
+                        sportsList.add("Soccer");
+                    }
+                    if (tournamentInformation.hasTableTennis()) {
+                        sportsList.add("Table Tennis");
+                    }
+                    if (tournamentInformation.hasTchoukball()) {
+                        sportsList.add("Tchoukball");
+                    }
+                    if (tournamentInformation.hasTennis()) {
+                        sportsList.add("Tennis");
+                    }
+                    if (tournamentInformation.hasTouchFootball()) {
+                        sportsList.add("Touch Football");
+                    }
+                    if (tournamentInformation.hasUltimate()) {
+                        sportsList.add("Ultimate Frisbee");
+                    }
+                    if (tournamentInformation.hasVolleyball()) {
+                        sportsList.add("Volleyball");
+                    }
 
-                StringAdapter stringAdapter = new StringAdapter(SportsListActivity.this,sportsList,R.color.sports_list);
-                sportsListView.setAdapter(stringAdapter);
+                    StringAdapter stringAdapter = new StringAdapter(SportsListActivity.this, sportsList, R.color.sports_list);
+                    sportsListView.setAdapter(stringAdapter);
+                }
             }
 
             @Override

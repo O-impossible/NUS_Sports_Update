@@ -86,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
-        android:padding="20dp"
+        android:layout_margin="20dp"
         tools:context=".MainActivity">
 
         <ListView
@@ -139,8 +139,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/plus_sign"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/plus"
             />
     </RelativeLayout>
 </LinearLayout>

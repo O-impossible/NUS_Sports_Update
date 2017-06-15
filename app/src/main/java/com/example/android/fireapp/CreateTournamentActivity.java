@@ -129,6 +129,13 @@ public class CreateTournamentActivity extends AppCompatActivity {
         ultimate = mUltimateCheckbox.isChecked();
         volleyball = mVolleyballCheckbox.isChecked();
 
+        if(!basketball && !badminton && !contractBridge && !chess && !dodgeball && !dota2 && !floorball && !handball
+                && !netball && !reversi && !roadRelay && !soccer && !tableTennis && !tchoukball && !tennis
+                && !touchFootball && !ultimate && !volleyball) {
+            Toast.makeText(CreateTournamentActivity.this,"You must choose at least 1 sport",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         HashMap<String, Object> tournamentDetails = new HashMap<>();
 
         tournamentDetails.put("tournamentName", tournamentName);

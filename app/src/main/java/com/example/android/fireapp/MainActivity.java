@@ -59,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
         //tournament_list view to be populated with tournament data
         final ListView tournamentListView = (ListView) findViewById(R.id.tournament_list);
 
-        //finding and setting the empty view in the listView when the tournament_list has 0 items
-        View emptyView = findViewById(R.id.empty_view);
-        tournamentListView.setEmptyView(emptyView);
-
         final ArrayList<String> tournamentNamesList = new ArrayList<String>();
         final DatabaseReference tournamentRef = mDatabase.child("Tournaments");
 
@@ -112,6 +108,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        //tournament_list view to be populated with tournament data
+        final ListView tournamentListView = (ListView) findViewById(R.id.tournament_list);
+
+        //finding and setting the empty view in the listView when the tournament_list has 0 items
+        View emptyView = findViewById(R.id.empty_view);
+        tournamentListView.setEmptyView(emptyView);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
