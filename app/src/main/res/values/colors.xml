@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="tournament_name_list">#E74949</color>
     <color name="sports_list">#00897B</color>
+    <color name="tournaments_name_requests_page">#757575</color>
 </resources>

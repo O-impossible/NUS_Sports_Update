@@ -173,7 +173,9 @@ public class CreateTournamentActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot user: dataSnapshot.getChildren()){
-                    user.getRef().child("tournamentStatuses").child(tournamentId).updateChildren(tournamentStatus);
+                    user.getRef().child("tournamentStatuses").child(tournamentId).setValue(tournamentStatus);
+                    Log.d("CreateTournamentAct",user.getRef().toString());
+                    Log.d("CreateTournamentID",tournamentId);
                 }
             }
 

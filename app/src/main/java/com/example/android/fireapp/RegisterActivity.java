@@ -18,8 +18,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -88,19 +93,18 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selection = (String) parent.getItemAtPosition(position);
-                if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals(1)) {
-                        mYear = 1;
-                    } else if (selection.equals(2)) {
-                        mYear = 2;
-                    } else if (selection.equals(3)) {
-                        mYear = 3;
-                    } else if (selection.equals(4)) {
-                        mYear = 4;
-                    } else if (selection.equals(5)) {
-                        mYear= 5;
-                    }
+                if (selection.equals("1 (One)")) {
+                    mYear = 1;
+                } else if (selection.equals("2 (Two)")) {
+                    mYear = 2;
+                } else if (selection.equals("3 (Three)")) {
+                    mYear = 3;
+                } else if (selection.equals("4 (Four)")) {
+                    mYear = 4;
+                } else if (selection.equals("5 (Five)")) {
+                    mYear = 5;
                 }
+
             }
 
             // Because AdapterView is an abstract class, onNothingSelected must be defined
@@ -165,6 +169,11 @@ public class RegisterActivity extends AppCompatActivity {
         final String studentNumber = mStudentNumberField.getText().toString().trim();
         final String emailId = mEmailIdField.getText().toString().trim();
         final String password = mPasswordField.getText().toString().trim();
+        final DatabaseReference tournamentRef = FirebaseDatabase.getInstance().getReference().child("Tournaments");
+
+        final HashMap<String,Object> tournamentStatus = new HashMap<>();
+        tournamentStatus.put("isOrganizing",false);
+        tournamentStatus.put("isParticipating",false);
 
         mProgressDialog.setMessage("Signing Up ...");
         mProgressDialog.show();
@@ -181,7 +190,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         String userId = mAuth.getCurrentUser().getUid();
 
-                        DatabaseReference currentUser = mDatabase.child(userId);
+                        final DatabaseReference currentUser = mDatabase.child(userId);
                         currentUser.child("name").setValue(name);
                         currentUser.child("studentNumber").setValue(studentNumber);
                         currentUser.child("faculty").setValue(mFaculty);
@@ -189,6 +198,20 @@ public class RegisterActivity extends AppCompatActivity {
                         currentUser.child("email").setValue(emailId);
                         currentUser.child("isGod").setValue(false);
                         //currentUser.child("tournamentStatuses").setValue(new ArrayList<String>());
+
+                        tournamentRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot tournament : dataSnapshot.getChildren()){
+                                    currentUser.child("tournamentStatuses").child(tournament.getKey()).setValue(tournamentStatus);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
 
                         Toast.makeText(RegisterActivity.this,"User successfully registered\nLogged in as "+name,Toast.LENGTH_SHORT).show();
                         mProgressDialog.dismiss();

@@ -269,7 +269,44 @@ public class EditTournamentActivity extends AppCompatActivity {
                     // deletes the tournament id and all its contents from the realtime database
                     Toast.makeText(EditTournamentActivity.this,"Tournament Deleted",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(EditTournamentActivity.this,MainActivity.class);
+
+                    //remove the tournament from "Tournaments"
                     mDatabase.child(tournamentId).removeValue();
+
+                    //remove the tournament from "tournamentStatuses" under every user
+                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+                    userRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot user : dataSnapshot.getChildren()){
+                                user.getRef().child("tournamentStatuses").child(tournamentId).removeValue();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    //remove all requests for the given tournament under "Requests"
+                    DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference().child("Requests");
+                    requestsRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot request : dataSnapshot.getChildren()){
+                                RequestDetails requestDetails = request.getValue(RequestDetails.class);
+                                if(requestDetails.getTournamentId().equals(tournamentId)){
+                                    request.getRef().removeValue();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                     finish();
                     startActivity(intent);
                     dialog.dismiss();

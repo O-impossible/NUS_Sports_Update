@@ -240,7 +240,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.tournament_oc_register) {
             // TODO: Open up an activity to choose the tournaments for which user wants to be in OC
-
+            Intent requestIntent = new Intent(MainActivity.this,TournamentsListRequestActivity.class);
+            startActivity(requestIntent);
         }
 
 
