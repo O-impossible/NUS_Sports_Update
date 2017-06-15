@@ -160,13 +160,34 @@ public class CreateTournamentActivity extends AppCompatActivity {
         tournamentDetails.put("volleyball", volleyball);
 
         DatabaseReference newRef = mDatabase.push();
+        final String tournamentId = newRef.getKey();
 
         newRef.setValue(tournamentDetails);
 
-        Toast.makeText(CreateTournamentActivity.this, "Tournament Successfully Added", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(CreateTournamentActivity.this, MainActivity.class);
-        startActivity(intent);
+        final HashMap<String,Object> tournamentStatus = new HashMap<>();
+        tournamentStatus.put("isOrganizing",false);
+        tournamentStatus.put("isParticipating",false);
 
+        final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot user: dataSnapshot.getChildren()){
+                    user.getRef().child("tournamentStatuses").child(tournamentId).updateChildren(tournamentStatus);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        Toast.makeText(CreateTournamentActivity.this, "Tournament Successfully Added", Toast.LENGTH_SHORT).show();
         Log.d("Main Activity", "Tournament Created - No glitch");
+
+        Intent intent = new Intent(CreateTournamentActivity.this, MainActivity.class);
+        finish();
+        startActivity(intent);
     }
 }

@@ -33,13 +33,12 @@
             android:label="LOGIN" />
         <activity
             android:name=".CreateTournamentActivity"
-            android:label="CREATE TOURNAMENT"
-            />
+            android:label="CREATE TOURNAMENT" />
         <activity android:name=".SportsListActivity" />
         <activity
             android:name=".EditTournamentActivity"
-            android:label="EDIT TOURNAMENT"
-            ></activity>
+            android:label="EDIT TOURNAMENT" />
+        <activity android:name=".TournamentsListRequestActivity"></activity>
     </application>
 
 </manifest>

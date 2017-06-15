@@ -14,13 +14,13 @@ public class UserInformation {
     public boolean isAdmin;
     public String email;
     public boolean isGod;
-    public ArrayList<String> participatingIn;
-    public ArrayList<String> isOrganizing;
+    //public ArrayList<String> tournamentStatuses;
 
     //Define this constructor
     public UserInformation() {
         // Default constructor required for calls to DataSnapshot.getValue(UserInformation.class)
     }
+
 
     public boolean isGod() {
         return isGod;
@@ -28,22 +28,6 @@ public class UserInformation {
 
     public void setGod(boolean god) {
         isGod = god;
-    }
-
-    public ArrayList<String> getParticipatingIn() {
-        return participatingIn;
-    }
-
-    public void setParticipatingIn(ArrayList<String> participatingIn) {
-        this.participatingIn = participatingIn;
-    }
-
-    public ArrayList<String> getIsOrganizing() {
-        return isOrganizing;
-    }
-
-    public void setIsOrganizing(ArrayList<String> isOrganizing) {
-        this.isOrganizing = isOrganizing;
     }
 
     public String getName() {
@@ -85,4 +69,12 @@ public class UserInformation {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    /*public ArrayList<String> getTournamentStatuses() {
+        return tournamentStatuses;
+    }
+
+    public void setTournamentStatuses(ArrayList<String> tournamentStatuses) {
+        this.tournamentStatuses = tournamentStatuses;
+    }*/
 }

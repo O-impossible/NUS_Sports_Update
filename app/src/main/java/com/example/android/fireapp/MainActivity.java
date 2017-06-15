@@ -157,18 +157,20 @@ public class MainActivity extends AppCompatActivity {
                     mRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            UserInformation user = dataSnapshot.getValue(UserInformation.class);
-                            if (user.isGod()) {
-                                GOD_MODE=true;
-                                PARTICIPANT_MODE=false;
-                                ORGANIZER_MODE=false;
+                            if(dataSnapshot.exists()) {
+                                UserInformation user = dataSnapshot.getValue(UserInformation.class);
+                                if (user.isGod()) {
+                                    GOD_MODE = true;
+                                    PARTICIPANT_MODE = false;
+                                    ORGANIZER_MODE = false;
 
-                                invalidateOptionsMenu();
-                            } else {
-                                //debugging message
-                                Log.d("Main Activity", "Floating Action Button made invisible");
+                                    invalidateOptionsMenu();
+                                } else {
+                                    //debugging message
+                                    Log.d("Main Activity", "Floating Action Button made invisible");
 
-                                mFab.setVisibility(View.GONE);
+                                    mFab.setVisibility(View.GONE);
+                                }
                             }
                         }
 
@@ -179,7 +181,8 @@ public class MainActivity extends AppCompatActivity {
                     });
 
                     mLogOutButton.setVisibility(View.VISIBLE);
-                } else {
+                }
+                else {
                     //sign_in and sign_up views should be visible
                     //log_out button and welcome view should be invisible
                     //also, the FAB should be invisible
@@ -249,15 +252,17 @@ public class MainActivity extends AppCompatActivity {
             mDatabase.child("Users").child(id).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    UserInformation userInformation = dataSnapshot.getValue(UserInformation.class);
-                    userName = userInformation.getName();
-                    Log.d("Main Activity", userName);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mWelcomeUserMessage.setText("Welcome, " + userName);
-                        }
-                    });
+                    if(dataSnapshot.exists()) {
+                        UserInformation userInformation = dataSnapshot.getValue(UserInformation.class);
+                        userName = userInformation.getName();
+                        Log.d("Main Activity", userName);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mWelcomeUserMessage.setText("Welcome, " + userName);
+                            }
+                        });
+                    }
                 }
 
                 @Override

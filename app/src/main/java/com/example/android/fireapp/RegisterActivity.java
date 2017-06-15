@@ -146,8 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
                         currentUser.child("faculty").setValue(mFaculty);
                         currentUser.child("email").setValue(emailId);
                         currentUser.child("isGod").setValue(false);
-                        currentUser.child("participatingIn");
-                        currentUser.child("isOrganizing");
+                        //currentUser.child("tournamentStatuses").setValue(new ArrayList<String>());
 
                         Toast.makeText(RegisterActivity.this,"User successfully registered\nLogged in as "+name,Toast.LENGTH_SHORT).show();
                         mProgressDialog.dismiss();
