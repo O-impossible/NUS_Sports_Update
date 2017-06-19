@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#9CCC65"
+    tools:context="com.example.android.fireapp.ParticipantSportOptions">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        >
+    <Button
+        android:id="@+id/view_fixtures_button"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:text="View\nFixtures/\nScores"
+        android:background="#607D8B"
+        />
+    <Button
+        android:id="@+id/request_to_participate_button"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_below="@id/view_fixtures_button"
+        android:layout_margin="16dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:text="request\nto\n\participate"
+        android:background="#607D8B"
+        />
+    <Button
+        android:id="@+id/lockerroom_button"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_below="@id/request_to_participate_button"
+        android:layout_margin="16dp"
+        android:text="lockerroom"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:background="#607D8B"
+        />
+    </RelativeLayout>
+
+</RelativeLayout>

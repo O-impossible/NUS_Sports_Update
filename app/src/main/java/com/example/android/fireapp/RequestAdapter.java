@@ -111,6 +111,7 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
                 if(retrievedRequest.isParticipantRequest()){
                     tournamentStatus.put("isOrganizing",false);
                     tournamentStatus.put("isParticipating",true);
+                    userRef.child("sports").child(retrievedRequest.getTournamentId()).child(retrievedRequest.getSport()).setValue(true);
                 }
                 else if(retrievedRequest.isOCRequest()){
                     tournamentStatus.put("isOrganizing",true);
@@ -120,6 +121,7 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
 
                 Toast.makeText(getContext(),"Requested Accepted",Toast.LENGTH_SHORT).show();
                 userRef.child("tournamentStatuses").child(retrievedRequest.getTournamentId()).updateChildren(tournamentStatus);
+
 
                 DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference().child("Requests");
                 requestsRef.addValueEventListener(new ValueEventListener() {

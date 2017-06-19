@@ -39,7 +39,9 @@
             android:name=".EditTournamentActivity"
             android:label="EDIT TOURNAMENT" />
         <activity android:name=".TournamentsListRequestActivity" />
-        <activity android:name=".DisplayRequestsActivity"></activity>
+        <activity android:name=".DisplayRequestsActivity" />
+        <activity android:name=".FixturesActivity" />
+        <activity android:name=".ParticipantSportOptions"></activity>
     </application>
 
 </manifest>

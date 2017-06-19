@@ -75,7 +75,7 @@ public class EditTournamentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_tournament);
 
         Intent intent = getIntent();
-        tournamentId = intent.getStringExtra(SportsListActivity.EXTRA_MESSAGE);
+        tournamentId = intent.getStringExtra(SportsListActivity.EXTRA_MESSAGE_TO_EDIT);
 
         Log.d("tournamentID(edit):",tournamentId);
 

@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,14 +27,14 @@ public class SportsListActivity extends AppCompatActivity {
     private String tournamentId;
     private DatabaseReference mDatabase;
     private boolean mIsOrganizing = false;
-
     private FirebaseAuth mAuth;
+
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-
     private String userId;
-    private boolean GOD_MODE=false;
 
-    public static String EXTRA_MESSAGE = "Tournament ID";
+    public static String EXTRA_MESSAGE_TO_EDIT = "Tournament ID";
+    public static final String EXTRA_MESSAGE_TO_FIXTURES = "Sport Details";
+    public static final String EXTRA_MESSAGE_TO_OPTIONS = EXTRA_MESSAGE_TO_FIXTURES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class SportsListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentToEditTournament = new Intent(SportsListActivity.this,EditTournamentActivity.class);
-                intentToEditTournament.putExtra(EXTRA_MESSAGE, tournamentId);
+                intentToEditTournament.putExtra(EXTRA_MESSAGE_TO_EDIT, tournamentId);
                 startActivity(intentToEditTournament);
                 finish();
             }
@@ -165,6 +166,31 @@ public class SportsListActivity extends AppCompatActivity {
 
                     StringAdapter stringAdapter = new StringAdapter(SportsListActivity.this, sportsList, R.color.sports_list);
                     sportsListView.setAdapter(stringAdapter);
+
+                    sportsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            String sportName = sportsList.get(position);
+
+                            if(userId == null){
+                                //go directly to the fixtures page
+                                Intent intent = new Intent(SportsListActivity.this, FixturesActivity.class);
+                                String[] extras = {tournamentId, sportName};
+                                intent.putExtra(EXTRA_MESSAGE_TO_FIXTURES,extras);
+                                startActivity(intent);
+                            }
+                            else{
+                                //go to the page where participant can choose to
+                                //a) view fixtures/scores ;
+                                //b) request to take part in the sport
+                                //c) access the sport's locker-room
+                                Intent intent = new Intent(SportsListActivity.this, ParticipantSportOptions.class);
+                                String[] extras = {tournamentId, sportName, userId};
+                                intent.putExtra(EXTRA_MESSAGE_TO_OPTIONS,extras);
+                                startActivity(intent);
+                            }
+                        }
+                    });
                 }
             }
 
