@@ -59,14 +59,18 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
         final TextView tournamentName = (TextView) listItemView.findViewById(R.id.request_textview_tournament_name);
         final TextView userName = (TextView) listItemView.findViewById(R.id.request_textview_user_name);
         final TextView requestType = (TextView) listItemView.findViewById(R.id.request_textview_request_type);
+        final TextView sport = (TextView) listItemView.findViewById(R.id.request_textview_sport);
         final TextView userFaculty = (TextView) listItemView.findViewById(R.id.request_textview_user_faculty);
         final TextView userYear = (TextView) listItemView.findViewById(R.id.request_textview_user_year);
 
-        if(retrievedRequest.isParticipantRequest())
+        if(retrievedRequest.isParticipantRequest()) {
             requestType.setText("Request Type: Participant");
-        else
+            sport.setText("Sport: "+retrievedRequest.getSport());
+        }
+        else {
             requestType.setText("Request Type: Organizing Committee");
-
+            sport.setVisibility(View.GONE);
+        }
         tournamentRef = FirebaseDatabase.getInstance().getReference().child("Tournaments").child(retrievedRequest.getTournamentId());
         tournamentRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,6 +86,7 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
 
             }
         });
+
 
         userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(retrievedRequest.getUserId());
         userRef.addValueEventListener(new ValueEventListener() {

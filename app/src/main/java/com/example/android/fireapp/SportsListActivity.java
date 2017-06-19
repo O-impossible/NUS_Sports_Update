@@ -60,9 +60,11 @@ public class SportsListActivity extends AppCompatActivity {
                     mRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            UserInformation user = dataSnapshot.getValue(UserInformation.class);
-                            if(!user.isGod()){
-                                mFab.setVisibility(View.INVISIBLE);
+                            if(dataSnapshot.exists()) {
+                                UserInformation user = dataSnapshot.getValue(UserInformation.class);
+                                if (!user.isGod()) {
+                                    mFab.setVisibility(View.INVISIBLE);
+                                }
                             }
                         }
 

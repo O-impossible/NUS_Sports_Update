@@ -34,6 +34,12 @@
             android:layout_margin="4dp"
             />
         <TextView
+            android:id="@+id/request_textview_sport"
+            android:layout_height="wrap_content"
+            android:layout_width="260dp"
+            android:layout_margin="4dp"
+            />
+        <TextView
             android:id="@+id/request_textview_user_faculty"
             android:layout_height="wrap_content"
             android:layout_width="260dp"

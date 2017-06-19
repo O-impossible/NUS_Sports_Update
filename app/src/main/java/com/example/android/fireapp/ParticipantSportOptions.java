@@ -7,8 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -35,9 +38,26 @@ public class ParticipantSportOptions extends AppCompatActivity {
         sportName = extras[1];
         userId = extras[2];
 
+        setTitle(sportName);
+
         mViewFixturesButton = (Button) findViewById(R.id.view_fixtures_button);
         mRequestToParticipateButton = (Button) findViewById(R.id.request_to_participate_button);
         mLockerRoomButton = (Button) findViewById(R.id.lockerroom_button);
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("sports");
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!(dataSnapshot.exists() && dataSnapshot.hasChild(sportName))){
+                    mLockerRoomButton.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         mViewFixturesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +87,12 @@ public class ParticipantSportOptions extends AppCompatActivity {
             }
         });
 
+        mLockerRoomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ParticipantSportOptions.this, "Selected Lockerroom", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

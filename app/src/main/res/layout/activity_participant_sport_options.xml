@@ -34,7 +34,7 @@
         android:layout_margin="16dp"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="request\nto\n\participate"
+        android:text="request\nto\nparticipate"
         android:background="#607D8B"
         />
     <Button
