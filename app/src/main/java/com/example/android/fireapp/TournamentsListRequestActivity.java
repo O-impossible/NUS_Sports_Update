@@ -72,7 +72,7 @@ public class TournamentsListRequestActivity extends AppCompatActivity {
                         Log.d("TournamentId(onclick)",tournamentId);
                         requestDetails.put("tournamentId",tournamentId);
                         requestDetails.put("userId",mAuth.getCurrentUser().getUid());
-                        mDatabase.child("Requests").push().updateChildren(requestDetails);
+                        mDatabase.child("Requests").push().setValue(requestDetails);
 
                         Toast.makeText(TournamentsListRequestActivity.this,"Request successfully sent!",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(TournamentsListRequestActivity.this,MainActivity.class);

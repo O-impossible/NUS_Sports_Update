@@ -38,7 +38,8 @@
         <activity
             android:name=".EditTournamentActivity"
             android:label="EDIT TOURNAMENT" />
-        <activity android:name=".TournamentsListRequestActivity"></activity>
+        <activity android:name=".TournamentsListRequestActivity" />
+        <activity android:name=".DisplayRequestsActivity"></activity>
     </application>
 
 </manifest>
