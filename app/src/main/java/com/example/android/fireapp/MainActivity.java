@@ -80,6 +80,22 @@ public class MainActivity extends AppCompatActivity {
                 StringAdapter stringAdapter = new StringAdapter(MainActivity.this,tournamentNamesList,R.color.tournament_name_list);
                 tournamentListView.setAdapter(stringAdapter);
 
+                View emptyView = findViewById(R.id.empty_view);
+
+                if(tournamentNamesList.size()==0)
+
+                {
+                    emptyView.setVisibility(View.VISIBLE);
+                    tournamentListView.setVisibility(View.GONE);
+                }
+
+                else
+
+                {
+                    emptyView.setVisibility(View.GONE);
+                    tournamentListView.setVisibility(View.VISIBLE);
+                }
+
                 tournamentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -113,8 +129,7 @@ public class MainActivity extends AppCompatActivity {
         final ListView tournamentListView = (ListView) findViewById(R.id.tournament_list);
 
         //finding and setting the empty view in the listView when the tournament_list has 0 items
-        View emptyView = findViewById(R.id.empty_view);
-        tournamentListView.setEmptyView(emptyView);
+
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();

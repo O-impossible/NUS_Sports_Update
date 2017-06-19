@@ -6,6 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -22,6 +25,7 @@ public class SportsListActivity extends AppCompatActivity {
 
     private String tournamentId;
     private DatabaseReference mDatabase;
+    private boolean mIsOrganizing = false;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -170,4 +174,58 @@ public class SportsListActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(userId != null){
+            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("tournamentStatuses").
+                    child(tournamentId);
+            mRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        TournamentStatus tournamentStatus = dataSnapshot.getValue(TournamentStatus.class);
+                        if(tournamentStatus.isOrganizing()){
+                            invalidateOptionsMenu();
+                            mIsOrganizing = true;
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if(mIsOrganizing){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.admin_options_menu,menu);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.tournament_access_requests){
+            Intent intent = new Intent(SportsListActivity.this,DisplayRequestsActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.tournament_chatroom){
+            //TODO: create an intent to go to the admin chatroom
+        }
+
+        return true;
+    }
 }
+
+
