@@ -278,8 +278,16 @@ public class EditTournamentActivity extends AppCompatActivity {
                     userRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot user : dataSnapshot.getChildren()){
-                                user.getRef().child("tournamentStatuses").child(tournamentId).removeValue();
+                            if(dataSnapshot.exists()) {
+                                for (DataSnapshot user : dataSnapshot.getChildren()) {
+                                    user.getRef().child("tournamentStatuses").child(tournamentId).removeValue();
+
+                                    DataSnapshot sportDS = user.child("sports").child(tournamentId);
+                                    if(sportDS.exists()){
+                                        sportDS.getRef().removeValue();
+                                    }
+
+                                }
                             }
                         }
 
@@ -289,15 +297,20 @@ public class EditTournamentActivity extends AppCompatActivity {
                         }
                     });
 
+                    //remove all the sports under the tournamentID for every user
+                    DatabaseReference sportRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
                     //remove all requests for the given tournament under "Requests"
                     DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference().child("Requests");
                     requestsRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot request : dataSnapshot.getChildren()){
-                                RequestDetails requestDetails = request.getValue(RequestDetails.class);
-                                if(requestDetails.getTournamentId().equals(tournamentId)){
-                                    request.getRef().removeValue();
+                            if(dataSnapshot.exists()) {
+                                for (DataSnapshot request : dataSnapshot.getChildren()) {
+                                    RequestDetails requestDetails = request.getValue(RequestDetails.class);
+                                    if (requestDetails.getTournamentId().equals(tournamentId)) {
+                                        request.getRef().removeValue();
+                                    }
                                 }
                             }
                         }
