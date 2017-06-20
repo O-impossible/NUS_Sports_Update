@@ -35,6 +35,7 @@ public class SportsListActivity extends AppCompatActivity {
     public static String EXTRA_MESSAGE_TO_EDIT = "Tournament ID";
     public static final String EXTRA_MESSAGE_TO_FIXTURES = "Sport Details";
     public static final String EXTRA_MESSAGE_TO_OPTIONS = EXTRA_MESSAGE_TO_FIXTURES;
+    public static final String EXTRA_MESSAGE_TO_REQUESTS = EXTRA_MESSAGE_TO_EDIT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,8 +246,9 @@ public class SportsListActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.tournament_access_requests){
-            Intent intent = new Intent(SportsListActivity.this,DisplayRequestsActivity.class);
-            startActivity(intent);
+            Intent intentToRequests = new Intent(SportsListActivity.this,DisplayRequestsActivity.class);
+            intentToRequests.putExtra(EXTRA_MESSAGE_TO_REQUESTS,tournamentId);
+            startActivity(intentToRequests);
         }
         else if(id == R.id.tournament_chatroom){
             //TODO: create an intent to go to the admin chatroom

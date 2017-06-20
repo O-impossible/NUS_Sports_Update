@@ -129,7 +129,7 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
 
 
                 DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference().child("Requests");
-                requestsRef.addValueEventListener(new ValueEventListener() {
+                requestsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){
@@ -160,7 +160,7 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
             @Override
             public void onClick(View v) {
                 DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference().child("Requests");
-                requestsRef.addValueEventListener(new ValueEventListener() {
+                requestsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){

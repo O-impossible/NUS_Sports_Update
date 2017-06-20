@@ -82,7 +82,7 @@ public class TournamentsListRequestActivity extends AppCompatActivity {
                         requestDetails.setParticipantRequest(false);
 
                         DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference().child("Requests");
-                        requestsRef.addValueEventListener(new ValueEventListener() {
+                        requestsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.exists()){

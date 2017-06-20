@@ -1,5 +1,6 @@
 package com.example.android.fireapp;
 
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 public class DisplayRequestsActivity extends AppCompatActivity {
 
     private DatabaseReference requestsRef;
+    private String tournamentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,9 @@ public class DisplayRequestsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_requests);
 
         final ArrayList<RequestDetails> requestDetailsArrayList = new ArrayList<>();
+
+        Intent intent = getIntent();
+        tournamentId = intent.getStringExtra(SportsListActivity.EXTRA_MESSAGE_TO_REQUESTS);
 
         final ListView requestsListView = (ListView) findViewById(R.id.requests_list);
         requestsRef = FirebaseDatabase.getInstance().getReference().child("Requests");
@@ -43,7 +48,9 @@ public class DisplayRequestsActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot requests : dataSnapshot.getChildren()){
                         RequestDetails retrievedRequest = requests.getValue(RequestDetails.class);
-                        requestDetailsArrayList.add(retrievedRequest);
+                        if(retrievedRequest.getTournamentId().equals(tournamentId)) {
+                            requestDetailsArrayList.add(retrievedRequest);
+                        }
                         Log.d("requestID",requests.getKey());
                         Log.d("requestListsize(inside)",Integer.toString(requestDetailsArrayList.size()));
                     }
