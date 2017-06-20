@@ -26,6 +26,7 @@ public class TournamentsListRequestActivity extends AppCompatActivity {
     private String tournamentId;
     private FirebaseAuth mAuth;
 
+    private boolean alreadyRequested = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,7 @@ public class TournamentsListRequestActivity extends AppCompatActivity {
         final DatabaseReference tournamentRef = mDatabase.child("Tournaments");
 
         final HashMap<String,String> nameIdMatcher = new HashMap<>();
-        final HashMap<String,Object> requestDetails = new HashMap<>();
+        final HashMap<String,Object> requestDetailsHashMap = new HashMap<>();
 
         tournamentRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -70,17 +71,52 @@ public class TournamentsListRequestActivity extends AppCompatActivity {
                         tournamentId = nameIdMatcher.get(tournamentName);
                         Log.d("TournamentName(onclick)",tournamentName);
                         Log.d("TournamentId(onclick)",tournamentId);
-                        requestDetails.put("tournamentId",tournamentId);
-                        requestDetails.put("userId",mAuth.getCurrentUser().getUid());
-                        requestDetails.put("isOCRequest",true);
-                        requestDetails.put("isParticipantRequest",false);
-                        requestDetails.put("sport","blank");
-                        mDatabase.child("Requests").push().setValue(requestDetails);
 
-                        Toast.makeText(TournamentsListRequestActivity.this,"Request successfully sent!",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(TournamentsListRequestActivity.this,MainActivity.class);
-                        finish();
-                        startActivity(intent);
+                        final RequestDetails requestDetails = new RequestDetails();
+                        requestDetails.setTournamentId(tournamentId);
+                        requestDetails.setUserId(mAuth.getCurrentUser().getUid());
+                        requestDetails.setSport("blank");
+                        requestDetails.setOCRequest(true);
+                        requestDetails.setParticipantRequest(false);
+
+                        DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference().child("Requests");
+                        requestsRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    for(DataSnapshot requests : dataSnapshot.getChildren()){
+                                        RequestDetails retrievedRequest = requests.getValue(RequestDetails.class);
+                                        if(retrievedRequest.equals(requestDetails)){
+                                            alreadyRequested = true;
+                                            Toast.makeText(TournamentsListRequestActivity.this, "Request has already been received!\nPlease wait for approval!", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        }
+                                    }
+                                }
+                                if(!alreadyRequested){
+                                    requestDetailsHashMap.put("tournamentId",tournamentId);
+                                    requestDetailsHashMap.put("userId",mAuth.getCurrentUser().getUid());
+                                    requestDetailsHashMap.put("isOCRequest",true);
+                                    requestDetailsHashMap.put("isParticipantRequest",false);
+                                    requestDetailsHashMap.put("sport","blank");
+                                    mDatabase.child("Requests").push().setValue(requestDetailsHashMap);
+
+                                    Toast.makeText(TournamentsListRequestActivity.this,"Request successfully sent!",Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(TournamentsListRequestActivity.this,MainActivity.class);
+                                    finish();
+                                    startActivity(intent);
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                     }
                 });
             }
