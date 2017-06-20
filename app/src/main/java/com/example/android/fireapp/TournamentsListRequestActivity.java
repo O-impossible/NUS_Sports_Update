@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -88,7 +90,11 @@ public class TournamentsListRequestActivity extends AppCompatActivity {
                                         RequestDetails retrievedRequest = requests.getValue(RequestDetails.class);
                                         if(retrievedRequest.equals(requestDetails)){
                                             alreadyRequested = true;
-                                            Toast.makeText(TournamentsListRequestActivity.this, "Request has already been received!\nPlease wait for approval!", Toast.LENGTH_SHORT).show();
+                                            Toast toast = Toast.makeText(TournamentsListRequestActivity.this, "Request has already been received!\n" +
+                                                    "Please wait for approval!", Toast.LENGTH_SHORT);
+                                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                                            if( v != null) v.setGravity(Gravity.CENTER);
+                                            toast.show();
                                             break;
                                         }
                                     }

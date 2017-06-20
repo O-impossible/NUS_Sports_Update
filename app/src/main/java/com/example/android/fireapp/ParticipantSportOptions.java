@@ -3,8 +3,10 @@ package com.example.android.fireapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,9 +23,15 @@ public class ParticipantSportOptions extends AppCompatActivity {
     private String sportName;
     private String userId;
 
+    private boolean alreadyRequested = false;
+    private boolean alreadyDisplayed = false;
+    private boolean returned = false;
+
     private Button mViewFixturesButton;
     private Button mRequestToParticipateButton;
     private Button mLockerRoomButton;
+
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     public static final String EXTRA_MESSAGE_TO_FIXTURES = "Sport Details";
 
@@ -72,18 +80,61 @@ public class ParticipantSportOptions extends AppCompatActivity {
         mRequestToParticipateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String,Object> requestDetails = new HashMap<String, Object>();
-                requestDetails.put("tournamentId",tournamentId);
-                requestDetails.put("userId",userId);
-                requestDetails.put("sport",sportName);
-                requestDetails.put("isOCRequest",false);
-                requestDetails.put("isParticipantRequest",true);
+                final HashMap<String,Object> requestDetailsHashMap = new HashMap<String, Object>();
+                requestDetailsHashMap.put("tournamentId",tournamentId);
+                requestDetailsHashMap.put("userId",userId);
+                requestDetailsHashMap.put("sport",sportName);
+                requestDetailsHashMap.put("isOCRequest",false);
+                requestDetailsHashMap.put("isParticipantRequest",true);
 
-                DatabaseReference requestRef = FirebaseDatabase.getInstance().getReference().child("Requests");
-                requestRef.push().setValue(requestDetails);
+                final RequestDetails requestDetails = new RequestDetails();
+                requestDetails.setTournamentId(tournamentId);
+                requestDetails.setUserId(userId);
+                requestDetails.setSport(sportName);
+                requestDetails.setParticipantRequest(true);
+                requestDetails.setOCRequest(false);
 
-                Toast.makeText(ParticipantSportOptions.this, "Request Successfully Sent!", Toast.LENGTH_SHORT).show();
-                return;
+                final DatabaseReference requestRef = FirebaseDatabase.getInstance().getReference().child("Requests");
+                requestRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            for(DataSnapshot request : dataSnapshot.getChildren()){
+                                RequestDetails retrievedDetails = request.getValue(RequestDetails.class);
+                                if(retrievedDetails.equals(requestDetails)){
+                                    alreadyRequested = true;
+//                                    finish();
+//                                    startActivity(getIntent());
+                                    break;
+                                }
+                            }
+                        }
+                        if(!alreadyRequested){
+                            //alreadyDisplayed = true;
+                            mDatabase.child("Requests").push().setValue(requestDetailsHashMap);
+                            Toast.makeText(ParticipantSportOptions.this, "Request Successfully Sent!", Toast.LENGTH_SHORT).show();
+//                            finish();
+//                            startActivity(getIntent());
+
+                        }
+                        else if(alreadyRequested){
+                            Toast toast = Toast.makeText(ParticipantSportOptions.this, "Request has already been received!\n" +
+                                            "Please wait for approval!", Toast.LENGTH_SHORT);
+                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                            if( v != null) v.setGravity(Gravity.CENTER);
+                            toast.show();
+//                            Toast.makeText(ParticipantSportOptions.this, "Request has already been received!\nPlease wait for approval!",
+//                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 
