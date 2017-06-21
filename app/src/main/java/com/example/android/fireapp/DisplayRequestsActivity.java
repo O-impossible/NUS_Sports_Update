@@ -89,4 +89,10 @@ public class DisplayRequestsActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onStop() {
+        finish();
+        super.onStop();
+    }
 }

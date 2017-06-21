@@ -280,7 +280,8 @@ public class EditTournamentActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()) {
                                 for (DataSnapshot user : dataSnapshot.getChildren()) {
-                                    user.getRef().child("tournamentStatuses").child(tournamentId).removeValue();
+                                    if(user.child("tournamentStatus").hasChild(tournamentId))
+                                        user.getRef().child("tournamentStatuses").child(tournamentId).removeValue();
 
                                     DataSnapshot sportDS = user.child("sports").child(tournamentId);
                                     if(sportDS.exists()){
@@ -298,7 +299,7 @@ public class EditTournamentActivity extends AppCompatActivity {
                     });
 
                     //remove all the sports under the tournamentID for every user
-                    DatabaseReference sportRef = FirebaseDatabase.getInstance().getReference().child("Users");
+                    //DatabaseReference sportRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
                     //remove all requests for the given tournament under "Requests"
                     DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference().child("Requests");

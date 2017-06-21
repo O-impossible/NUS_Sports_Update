@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by Yash Chowdhary on 19-06-2017.
@@ -31,13 +32,18 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
 
     private DatabaseReference tournamentRef;
     private DatabaseReference userRef;
-    ArrayList<RequestDetails> mRequestsList;
+    private ArrayList<RequestDetails> mRequestsList;
+    private HashSet<RequestDetails> hashSet = new HashSet<>();
 
     private HashMap<String,Object> tournamentStatus = new HashMap<>();
 
     public RequestAdapter(Activity context, ArrayList<RequestDetails> requests){
         super(context,0,requests);
         this.mRequestsList = requests;
+
+        hashSet.addAll(mRequestsList);
+        mRequestsList.clear();
+        mRequestsList.addAll(hashSet);
     }
 
     @NonNull
@@ -151,7 +157,9 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
 
                     }
                 });
-                mRequestsList.remove(retrievedRequest);
+                hashSet.remove(retrievedRequest);
+                mRequestsList.clear();
+                mRequestsList.addAll(hashSet);
                 notifyDataSetChanged();
             }
         });
@@ -186,7 +194,9 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
                     }
                 });
 
-                mRequestsList.remove(retrievedRequest);
+                hashSet.remove(retrievedRequest);
+                mRequestsList.clear();
+                mRequestsList.addAll(hashSet);
                 notifyDataSetChanged();
             }
         });

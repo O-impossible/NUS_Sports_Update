@@ -215,6 +215,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                         Toast.makeText(RegisterActivity.this,"User successfully registered\nLogged in as "+name,Toast.LENGTH_SHORT).show();
                         mProgressDialog.dismiss();
+                        Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
+                        finish();
+                        startActivity(intent);
                     }
                     else{
 
@@ -222,11 +225,6 @@ public class RegisterActivity extends AppCompatActivity {
                         mProgressDialog.dismiss();
                         return;
                     }
-
-
-                    Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
-                    startActivity(intent);
-
                 }
             });
         }
