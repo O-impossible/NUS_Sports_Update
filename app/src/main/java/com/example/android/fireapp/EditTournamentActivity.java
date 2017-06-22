@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EditTournamentActivity extends AppCompatActivity {
@@ -67,6 +68,8 @@ public class EditTournamentActivity extends AppCompatActivity {
     private Button mSaveChangesButton;
 
     private DatabaseReference mDatabase;
+
+    private ArrayList<DatabaseReference> toRemove = new ArrayList<DatabaseReference>();
 
     private String tournamentId;
     @Override
@@ -273,23 +276,55 @@ public class EditTournamentActivity extends AppCompatActivity {
                     //remove the tournament from "Tournaments"
                     mDatabase.child(tournamentId).removeValue();
 
+
                     //remove the tournament from "tournamentStatuses" under every user
                     DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-                    userRef.addValueEventListener(new ValueEventListener() {
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            toRemove.clear();
+
                             if(dataSnapshot.exists()) {
                                 for (DataSnapshot user : dataSnapshot.getChildren()) {
-                                    if(user.child("tournamentStatus").hasChild(tournamentId))
-                                        user.getRef().child("tournamentStatuses").child(tournamentId).removeValue();
-
-                                    DataSnapshot sportDS = user.child("sports").child(tournamentId);
-                                    if(sportDS.exists()){
-                                        sportDS.getRef().removeValue();
+                                    if (user.child("tournamentStatuses").exists() && user.child("tournamentStatuses").hasChild(tournamentId)) {
+                                        toRemove.add(user.child("tournamentStatuses").child(tournamentId).getRef());
+                                        Log.d("Removing at",user.child("tournamentStatuses").child(tournamentId).getRef().toString());
+                                        Log.d("Edit activity","tournament deleted");
                                     }
-
                                 }
                             }
+
+                            for(int i=0;i<toRemove.size();i++)
+                            {
+                                toRemove.get(i).removeValue();
+                            }
+                            toRemove.clear();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    //remove all approved requests
+                    DatabaseReference sportRef = FirebaseDatabase.getInstance().getReference().child("Users");
+                    sportRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                toRemove.clear();
+                                for(DataSnapshot user : dataSnapshot.getChildren()){
+                                    if(user.child("sports").exists() && user.child("sports").hasChild(tournamentId)){
+                                        toRemove.add(user.child("sports").child(tournamentId).getRef());
+                                    }
+                                }
+                            }
+                            for(int i=0;i<toRemove.size();i++)
+                            {
+                                toRemove.get(i).removeValue();
+                            }
+                            toRemove.clear();
                         }
 
                         @Override
@@ -307,13 +342,19 @@ public class EditTournamentActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()) {
+                                toRemove.clear();
                                 for (DataSnapshot request : dataSnapshot.getChildren()) {
                                     RequestDetails requestDetails = request.getValue(RequestDetails.class);
                                     if (requestDetails.getTournamentId().equals(tournamentId)) {
-                                        request.getRef().removeValue();
+                                        toRemove.add(request.getRef());
                                     }
                                 }
                             }
+                            for(int i=0;i<toRemove.size();i++)
+                            {
+                                toRemove.get(i).removeValue();
+                            }
+                            toRemove.clear();
                         }
 
                         @Override
@@ -321,6 +362,12 @@ public class EditTournamentActivity extends AppCompatActivity {
 
                         }
                     });
+
+                    Log.d("toRemove(size)",Integer.toString(toRemove.size()));
+//                    for(int i=0;i<toRemove.size();i++)
+//                    {
+//                        toRemove.get(i).removeValue();
+//                    }
                     finish();
                     startActivity(intent);
                     dialog.dismiss();

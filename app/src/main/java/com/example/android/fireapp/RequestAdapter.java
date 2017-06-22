@@ -1,6 +1,7 @@
 package com.example.android.fireapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 /**
  * Created by Yash Chowdhary on 19-06-2017.
@@ -40,10 +42,10 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
     public RequestAdapter(Activity context, ArrayList<RequestDetails> requests){
         super(context,0,requests);
         this.mRequestsList = requests;
-
-        hashSet.addAll(mRequestsList);
-        mRequestsList.clear();
-        mRequestsList.addAll(hashSet);
+//
+//        hashSet.addAll(mRequestsList);
+//        mRequestsList.clear();
+//        mRequestsList.addAll(hashSet);
     }
 
     @NonNull
@@ -157,10 +159,14 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
 
                     }
                 });
-                hashSet.remove(retrievedRequest);
-                mRequestsList.clear();
-                mRequestsList.addAll(hashSet);
-                notifyDataSetChanged();
+//                remove(retrievedRequest);
+                mRequestsList.remove(retrievedRequest);
+                updateAdapter(mRequestsList);
+//                mRequestsList = new ArrayList<RequestDetails>(new LinkedHashSet<RequestDetails>(mRequestsList));
+//                  hashSet.remove();
+//                mRequestsList.clear();
+//                mRequestsList.addAll(hashSet);
+                //notifyDataSetChanged();
             }
         });
 
@@ -194,13 +200,27 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
                     }
                 });
 
-                hashSet.remove(retrievedRequest);
-                mRequestsList.clear();
-                mRequestsList.addAll(hashSet);
-                notifyDataSetChanged();
+//                remove(retrievedRequest);
+                mRequestsList.remove(retrievedRequest);
+                //mRequestsList = new ArrayList<RequestDetails>(new LinkedHashSet<RequestDetails>(mRequestsList));
+
+                updateAdapter(mRequestsList);
+//                hashSet.remove(retrievedRequest);
+//                mRequestsList.clear();
+//                mRequestsList.addAll(hashSet);
+                //notifyDataSetChanged();
             }
         });
 
         return listItemView;
+    }
+
+
+    public synchronized void updateAdapter(ArrayList<RequestDetails> requestsList) {
+        mRequestsList.clear();
+        mRequestsList.addAll(requestsList);
+
+        //and call notifyDataSetChanged
+        notifyDataSetChanged();
     }
 }

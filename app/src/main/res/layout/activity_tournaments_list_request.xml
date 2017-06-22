@@ -8,6 +8,7 @@
     tools:context="com.example.android.fireapp.TournamentsListRequestActivity">
 
     <TextView
+        android:id="@+id/message_1_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -19,4 +20,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/empty_tournament_oc_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="No Ongoing Tournaments"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:fontFamily="sans-serif-smallcaps"
+        />
+    </RelativeLayout>
 </LinearLayout>

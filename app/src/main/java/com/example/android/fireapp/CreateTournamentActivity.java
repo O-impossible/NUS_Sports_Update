@@ -168,12 +168,22 @@ public class CreateTournamentActivity extends AppCompatActivity {
         tournamentStatus.put("isOrganizing",false);
         tournamentStatus.put("isParticipating",false);
 
+        final HashMap<String,Object> tournamentStatusForOrganizer = new HashMap<>();
+        tournamentStatusForOrganizer.put("isOrganizing",true);
+        tournamentStatusForOrganizer.put("isParticipating",false);
+
         final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot user: dataSnapshot.getChildren()){
-                    user.getRef().child("tournamentStatuses").child(tournamentId).setValue(tournamentStatus);
+                    UserInformation userInformation = user.getValue(UserInformation.class);
+                    if(userInformation.getName().equals("Organizer User")){
+                        user.child("tournamentStatuses").child(tournamentId).getRef().setValue(tournamentStatusForOrganizer);
+                    }
+                    else {
+                        user.getRef().child("tournamentStatuses").child(tournamentId).setValue(tournamentStatus);
+                    }
                     Log.d("CreateTournamentAct",user.getRef().toString());
                     Log.d("CreateTournamentID",tournamentId);
                 }
@@ -184,6 +194,26 @@ public class CreateTournamentActivity extends AppCompatActivity {
 
             }
         });
+
+
+//        userRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if(dataSnapshot.exists()) {
+//                    for (DataSnapshot user : dataSnapshot.getChildren()) {
+//                        UserInformation userInformation = user.getValue(UserInformation.class);
+//                        if(userInformation.getName().equals("Organizer User")){
+//                            user.child("tournamentStatuses").child(tournamentId).getRef().setValue(tournamentStatusForOrganizer);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
         Toast.makeText(CreateTournamentActivity.this, "Tournament Successfully Added", Toast.LENGTH_SHORT).show();
         Log.d("Main Activity", "Tournament Created - No glitch");

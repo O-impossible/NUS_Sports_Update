@@ -52,7 +52,7 @@ public class ParticipantSportOptions extends AppCompatActivity {
         mRequestToParticipateButton = (Button) findViewById(R.id.request_to_participate_button);
         mLockerRoomButton = (Button) findViewById(R.id.lockerroom_button);
 
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("sports");
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("sports").child(tournamentId);
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -28,6 +28,8 @@ public class TournamentsListRequestActivity extends AppCompatActivity {
     private String tournamentId;
     private FirebaseAuth mAuth;
 
+    private TextView mTextView;
+
     private boolean alreadyRequested = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class TournamentsListRequestActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
+        mTextView = (TextView) findViewById(R.id.message_1_text_view);
         populateListView();
     }
 
@@ -64,6 +67,24 @@ public class TournamentsListRequestActivity extends AppCompatActivity {
 
                 StringAdapter stringAdapter = new StringAdapter(TournamentsListRequestActivity.this,tournamentNamesList,R.color.tournaments_name_requests_page);
                 tournamentListView.setAdapter(stringAdapter);
+
+                View emptyView = findViewById(R.id.empty_tournament_oc_list);
+
+                if(tournamentNamesList.size()==0)
+
+                {
+                    mTextView.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                    tournamentListView.setVisibility(View.GONE);
+                }
+
+                else
+
+                {
+                    emptyView.setVisibility(View.GONE);
+                    tournamentListView.setVisibility(View.VISIBLE);
+                    mTextView.setVisibility(View.VISIBLE);
+                }
 
                 tournamentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
