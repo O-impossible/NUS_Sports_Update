@@ -282,7 +282,6 @@ public class EditTournamentActivity extends AppCompatActivity {
                     userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            toRemove.clear();
 
                             if(dataSnapshot.exists()) {
                                 for (DataSnapshot user : dataSnapshot.getChildren()) {
@@ -293,12 +292,7 @@ public class EditTournamentActivity extends AppCompatActivity {
                                     }
                                 }
                             }
-
-                            for(int i=0;i<toRemove.size();i++)
-                            {
-                                toRemove.get(i).removeValue();
-                            }
-                            toRemove.clear();
+                            delete(toRemove);
                         }
 
                         @Override
@@ -313,18 +307,13 @@ public class EditTournamentActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()){
-                                toRemove.clear();
                                 for(DataSnapshot user : dataSnapshot.getChildren()){
                                     if(user.child("sports").exists() && user.child("sports").hasChild(tournamentId)){
                                         toRemove.add(user.child("sports").child(tournamentId).getRef());
                                     }
                                 }
                             }
-                            for(int i=0;i<toRemove.size();i++)
-                            {
-                                toRemove.get(i).removeValue();
-                            }
-                            toRemove.clear();
+                            delete(toRemove);
                         }
 
                         @Override
@@ -342,7 +331,6 @@ public class EditTournamentActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()) {
-                                toRemove.clear();
                                 for (DataSnapshot request : dataSnapshot.getChildren()) {
                                     RequestDetails requestDetails = request.getValue(RequestDetails.class);
                                     if (requestDetails.getTournamentId().equals(tournamentId)) {
@@ -350,11 +338,7 @@ public class EditTournamentActivity extends AppCompatActivity {
                                     }
                                 }
                             }
-                            for(int i=0;i<toRemove.size();i++)
-                            {
-                                toRemove.get(i).removeValue();
-                            }
-                            toRemove.clear();
+                            delete(toRemove);
                         }
 
                         @Override
@@ -363,7 +347,6 @@ public class EditTournamentActivity extends AppCompatActivity {
                         }
                     });
 
-                    Log.d("toRemove(size)",Integer.toString(toRemove.size()));
 //                    for(int i=0;i<toRemove.size();i++)
 //                    {
 //                        toRemove.get(i).removeValue();
@@ -388,5 +371,14 @@ public class EditTournamentActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private synchronized void delete(ArrayList<DatabaseReference> toRemove) {
+        for(int i=0;i<toRemove.size();i++)
+        {
+            toRemove.get(i).removeValue();
+        }
+
+        Log.d("delete()","delete done");
     }
 }

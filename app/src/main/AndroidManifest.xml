@@ -40,14 +40,13 @@
             android:label="EDIT TOURNAMENT" />
         <activity
             android:name=".TournamentsListRequestActivity"
-            android:label="OC REQUEST"
-            />
+            android:label="OC REQUEST" />
         <activity
             android:name=".DisplayRequestsActivity"
-            android:label="REQUESTS"
-            />
+            android:label="REQUESTS" />
         <activity android:name=".FixturesActivity" />
-        <activity android:name=".ParticipantSportOptions"></activity>
+        <activity android:name=".ParticipantSportOptions" />
+        <activity android:name=".CreateFixture"></activity>
     </application>
 
 </manifest>
