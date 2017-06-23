@@ -3,6 +3,7 @@ package com.example.android.fireapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -58,6 +59,29 @@ public class ParticipantSportOptions extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!(dataSnapshot.exists() && dataSnapshot.hasChild(sportName))){
                     mLockerRoomButton.setVisibility(View.GONE);
+                }
+                if(dataSnapshot.exists() && dataSnapshot.hasChild(sportName)){
+                    mRequestToParticipateButton.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("tournamentStatuses").child(tournamentId);
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    TournamentStatus status = dataSnapshot.getValue(TournamentStatus.class);
+
+                    if(status.isOrganizing()){
+                        Log.d("isOrganizing","true");
+                        mRequestToParticipateButton.setVisibility(View.GONE);
+                    }
                 }
             }
 

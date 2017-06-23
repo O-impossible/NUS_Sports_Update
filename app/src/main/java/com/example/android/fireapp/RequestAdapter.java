@@ -133,7 +133,7 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
 
 
                 Toast.makeText(getContext(),"Requested Accepted",Toast.LENGTH_SHORT).show();
-                userRef.child("tournamentStatuses").child(retrievedRequest.getTournamentId()).updateChildren(tournamentStatus);
+                userRef.child("tournamentStatuses").child(retrievedRequest.getTournamentId()).setValue(tournamentStatus);
 
 
                 DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference().child("Requests");

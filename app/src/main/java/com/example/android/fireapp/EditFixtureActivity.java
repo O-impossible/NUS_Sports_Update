@@ -355,7 +355,7 @@ public class EditFixtureActivity extends AppCompatActivity {
             builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
-                    // deletes the tournament id and all its contents from the realtime database
+                    // deletes the fixture and all its contents from the realtime database
                     Toast.makeText(EditFixtureActivity.this,"Fixture Deleted",Toast.LENGTH_SHORT).show();
                     Intent intentToDisplay = new Intent(EditFixtureActivity.this,DisplayFixturesActivity.class);
 

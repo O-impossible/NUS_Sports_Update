@@ -275,6 +275,10 @@ public class EditTournamentActivity extends AppCompatActivity {
 
                     //remove the tournament from "Tournaments"
                     mDatabase.child(tournamentId).removeValue();
+                    DatabaseReference fixturesRef = FirebaseDatabase.getInstance().getReference().child("Fixtures");
+
+                    //remove all fixtures of that tournament from "Fixtures"
+                    fixturesRef.child(tournamentId).removeValue();
 
 
                     //remove the tournament from "tournamentStatuses" under every user
