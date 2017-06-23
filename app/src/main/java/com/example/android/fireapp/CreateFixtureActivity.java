@@ -152,8 +152,8 @@ public class CreateFixtureActivity extends AppCompatActivity {
         fixtureDetails.put("date",mDateEditText.getText().toString().trim());
         fixtureDetails.put("time",mTimeEditText.getText().toString().trim());
         fixtureDetails.put("venue",venue);
-        fixtureDetails.put("team1score",0);
-        fixtureDetails.put("team2score",0);
+        fixtureDetails.put("team1score","0");
+        fixtureDetails.put("team2score","0");
         fixtureDetails.put("ongoing",false);
 
         DatabaseReference pushId = mDatabase.child("Fixtures").child(tournamentId).child(sportName).push();

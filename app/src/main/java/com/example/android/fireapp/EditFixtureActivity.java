@@ -93,6 +93,11 @@ public class EditFixtureActivity extends AppCompatActivity {
                     mDateEditText.setText(retrievedFixture.getDate());
                     mTimeEditText.setText(retrievedFixture.getTime());
                     mVenueEditText.setText(retrievedFixture.getVenue());
+                    mTeam1ScoreEditText.setText(retrievedFixture.getTeam1score());
+                    mTeam2ScoreEditText.setText(retrievedFixture.getTeam2score());
+                    if(retrievedFixture.isOngoing()){
+                        ongoingCheckbox.toggle();
+                    }
                 }
             }
 
