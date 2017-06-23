@@ -1,14 +1,20 @@
 package com.example.android.fireapp;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -327,5 +333,56 @@ public class EditFixtureActivity extends AppCompatActivity {
                 team1 = "N/A";
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.delete_fixture_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.delete_fixture_option){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle("Delete Fixture");
+            builder.setMessage("Are you sure you want to delete this fixture?");
+
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+                    // deletes the tournament id and all its contents from the realtime database
+                    Toast.makeText(EditFixtureActivity.this,"Fixture Deleted",Toast.LENGTH_SHORT).show();
+                    Intent intentToDisplay = new Intent(EditFixtureActivity.this,DisplayFixturesActivity.class);
+
+                    //remove the tournament from "Tournaments"
+                    DatabaseReference fixtureRef = mDatabase.child("Fixtures").child(tournamentId).child(sportName).child(fixtureId);
+                    fixtureRef.removeValue();
+                    String[] extras = {tournamentId,sportName};
+                    intentToDisplay.putExtra(EXTRA_MESSAGE_FROM_EDIT_FIXTURES,extras);
+                    finish();
+                    startActivity(intentToDisplay);
+                    dialog.dismiss();
+                }
+            });
+
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do nothing
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+
+        return true;
     }
 }
