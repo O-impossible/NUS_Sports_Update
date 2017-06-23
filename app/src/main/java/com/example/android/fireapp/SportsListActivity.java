@@ -177,7 +177,7 @@ public class SportsListActivity extends AppCompatActivity {
 
                             if(userId == null){
                                 //go directly to the fixtures page
-                                Intent intent = new Intent(SportsListActivity.this, FixturesActivity.class);
+                                Intent intent = new Intent(SportsListActivity.this, DisplayFixturesActivity.class);
                                 String[] extras = {tournamentId, sportName};
                                 intent.putExtra(EXTRA_MESSAGE_TO_FIXTURES,extras);
                                 startActivity(intent);

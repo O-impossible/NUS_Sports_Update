@@ -50,7 +50,7 @@ public class CreateFixtureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_fixture);
         Intent intent = getIntent();
-        String[] extras = intent.getStringArrayExtra(FixturesActivity.EXTRA_MESSAGE_TO_ADD_FIXTURES);
+        String[] extras = intent.getStringArrayExtra(DisplayFixturesActivity.EXTRA_MESSAGE_TO_ADD_FIXTURES);
         tournamentId = extras[0];
         sportName = extras[1];
 
@@ -105,6 +105,7 @@ public class CreateFixtureActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(CreateFixtureActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+
                         mTimeEditText.setText(selectedHour + ":" + selectedMinute);
                     }
                 }, hour, minute, true);//Yes 24 hour time
@@ -141,14 +142,17 @@ public class CreateFixtureActivity extends AppCompatActivity {
         fixtureDetails.put("team2score",0);
         fixtureDetails.put("ongoing",false);
 
-        mDatabase.child("Fixtures").child(tournamentId).child(sportName).push().setValue(fixtureDetails);
+        DatabaseReference pushId = mDatabase.child("Fixtures").child(tournamentId).child(sportName).push();
+        fixtureDetails.put("fixtureId",pushId.getKey());
+
+        pushId.setValue(fixtureDetails);
         Toast.makeText(this, "Fixture Created Successfully!", Toast.LENGTH_SHORT).show();
         return;
     }
 
     private void updateLabel() {
 
-        String myFormat = "dd/mm/yy"; //In which you need put here
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
 
         mDateEditText.setText(sdf.format(myCalendar.getTime()));

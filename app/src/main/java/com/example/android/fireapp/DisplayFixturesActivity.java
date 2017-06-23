@@ -15,7 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class FixturesActivity extends AppCompatActivity {
+public class DisplayFixturesActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE_TO_ADD_FIXTURES = "Sport Details";
     public static final String EXTRA_MESSAGE_TO_EDIT_FIXTURES = "Fixture Details";
@@ -101,7 +101,7 @@ public class FixturesActivity extends AppCompatActivity {
         fabAddFixture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentToAddFixture = new Intent(FixturesActivity.this,CreateFixtureActivity.class);
+                Intent intentToAddFixture = new Intent(DisplayFixturesActivity.this,CreateFixtureActivity.class);
                 if(userLoggedIn){
                     intentToAddFixture.putExtra(EXTRA_MESSAGE_TO_ADD_FIXTURES,intentDataUser);
                 }

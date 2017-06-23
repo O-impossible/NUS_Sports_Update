@@ -70,7 +70,7 @@ public class ParticipantSportOptions extends AppCompatActivity {
         mViewFixturesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentToFixtures = new Intent(ParticipantSportOptions.this,FixturesActivity.class);
+                Intent intentToFixtures = new Intent(ParticipantSportOptions.this,DisplayFixturesActivity.class);
                 String[] extrasToFixtures = {tournamentId, sportName};
                 intentToFixtures.putExtra(EXTRA_MESSAGE_TO_FIXTURES,extrasToFixtures);
                 startActivity(intentToFixtures);

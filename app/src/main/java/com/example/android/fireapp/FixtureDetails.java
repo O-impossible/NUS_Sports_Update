@@ -5,7 +5,7 @@ package com.example.android.fireapp;
  */
 
 public class FixtureDetails {
-    private String team1,team2,date,time,venue;
+    private String team1,team2,date,time,venue,fixtureId;
     private int team1score,team2score;
     private Boolean ongoing;
 
@@ -74,5 +74,13 @@ public class FixtureDetails {
 
     public void setOngoing(Boolean ongoing) {
         this.ongoing = ongoing;
+    }
+
+    public String getFixtureId() {
+        return fixtureId;
+    }
+
+    public void setFixtureId(String fixtureId) {
+        this.fixtureId = fixtureId;
     }
 }
