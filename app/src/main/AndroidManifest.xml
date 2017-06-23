@@ -46,7 +46,7 @@
             android:label="REQUESTS" />
         <activity android:name=".FixturesActivity" />
         <activity android:name=".ParticipantSportOptions" />
-        <activity android:name=".CreateFixture"></activity>
+        <activity android:name=".CreateFixtureActivity"></activity>
     </application>
 
 </manifest>

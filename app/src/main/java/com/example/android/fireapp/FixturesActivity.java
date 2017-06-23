@@ -101,7 +101,7 @@ public class FixturesActivity extends AppCompatActivity {
         fabAddFixture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentToAddFixture = new Intent(FixturesActivity.this,CreateFixture.class);
+                Intent intentToAddFixture = new Intent(FixturesActivity.this,CreateFixtureActivity.class);
                 if(userLoggedIn){
                     intentToAddFixture.putExtra(EXTRA_MESSAGE_TO_ADD_FIXTURES,intentDataUser);
                 }
