@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FFF9C4"
-    tools:context="com.example.android.fireapp.CreateFixtureActivity">
+    tools:context="com.example.android.fireapp.EditFixtureActivity">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,9 +19,10 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="14dp"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,7 +31,7 @@
             android:text="TEAM 1 :" />
 
         <Spinner
-            android:id="@+id/team1_spinner"
+            android:id="@+id/team1_spinner_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></Spinner>
     </LinearLayout>
@@ -38,9 +40,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:layout_margin="14dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,14 +51,14 @@
             android:text="TEAM 2 :" />
 
         <Spinner
-            android:id="@+id/team2_spinner"
+            android:id="@+id/team2_spinner_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></Spinner>
-        </LinearLayout>
-        <LinearLayout
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_margin="14dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,7 +67,7 @@
             android:text="DATE :" />
 
         <EditText
-            android:id="@+id/add_date_text_field"
+            android:id="@+id/edit_date_text_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -77,7 +79,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_margin="14dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,7 +88,7 @@
             android:text="TIME :" />
 
         <EditText
-            android:id="@+id/add_time_text_field"
+            android:id="@+id/edit_time_text_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -98,7 +100,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_margin="14dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -107,15 +109,64 @@
             android:text="VENUE :" />
 
         <EditText
-            android:id="@+id/add_venue_text_field"
+            android:id="@+id/edit_venue_text_field"
             android:layout_marginLeft="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Venue"
             android:inputType="text"
+            android:focusable="true"
             android:textAlignment="center" />
     </LinearLayout>
 
+    <CheckBox
+        android:id="@+id/ongoing_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Ongoing"
+        android:textAllCaps="true"
+        android:textColor="#616161"
+        android:padding="8dp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TEAM 1 : "
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            />
+        <EditText
+            android:id="@+id/team1_score_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="SCORE"
+            android:textAlignment="center"
+            android:inputType="text"
+            />
+
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TEAM 2 : "
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            />
+        <EditText
+            android:id="@+id/team2_score_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="SCORE"
+            android:textAlignment="center"
+            android:inputType="text"
+            />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -123,7 +174,7 @@
         android:layout_gravity="center"
         >
         <Button
-            android:id="@+id/cancel_button"
+            android:id="@+id/cancel_button_edit"
             android:layout_width="100dp"
             android:layout_height="60dp"
             android:text="cancel"
@@ -131,12 +182,12 @@
             android:textSize="15sp"
             />
         <Button
-            android:id="@+id/create_fixture_button"
+            android:id="@+id/update_fixture_button"
             android:layout_width="100dp"
             android:layout_height="60dp"
             android:textSize="15sp"
             android:layout_marginLeft="16dp"
-            android:text="Create\nFixture"
-        />
+            android:text="Update\nFixture"
+            />
     </LinearLayout>
 </LinearLayout>

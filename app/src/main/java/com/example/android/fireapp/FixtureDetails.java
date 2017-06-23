@@ -5,8 +5,7 @@ package com.example.android.fireapp;
  */
 
 public class FixtureDetails {
-    private String team1,team2,date,time,venue,fixtureId;
-    private int team1score,team2score;
+    private String team1,team2,date,time,venue,fixtureId, team1score,team2score;
     private Boolean ongoing;
 
     public FixtureDetails() {
@@ -52,19 +51,19 @@ public class FixtureDetails {
         this.venue = venue;
     }
 
-    public int getTeam1score() {
+    public String getTeam1score() {
         return team1score;
     }
 
-    public void setTeam1score(int team1score) {
+    public void setTeam1score(String team1score) {
         this.team1score = team1score;
     }
 
-    public int getTeam2score() {
+    public String getTeam2score() {
         return team2score;
     }
 
-    public void setTeam2score(int team2score) {
+    public void setTeam2score(String team2score) {
         this.team2score = team2score;
     }
 

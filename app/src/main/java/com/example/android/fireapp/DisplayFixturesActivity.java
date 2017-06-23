@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -59,9 +60,13 @@ public class DisplayFixturesActivity extends AppCompatActivity {
             tournamentId = intent.getStringArrayExtra(ParticipantSportOptions.EXTRA_MESSAGE_TO_FIXTURES)[0];
             sportName = intent.getStringArrayExtra(ParticipantSportOptions.EXTRA_MESSAGE_TO_FIXTURES)[1];
         }
-        else {
+        else if(intent.hasExtra(CreateFixtureActivity.EXTRA_MESSAGE_FROM_CREATE_FIXTURES)){
             tournamentId = intent.getStringArrayExtra(CreateFixtureActivity.EXTRA_MESSAGE_FROM_CREATE_FIXTURES)[0];
             sportName = intent.getStringArrayExtra(CreateFixtureActivity.EXTRA_MESSAGE_FROM_CREATE_FIXTURES)[1];
+        }
+        else if(intent.hasExtra(EditFixtureActivity.EXTRA_MESSAGE_FROM_EDIT_FIXTURES)){
+            tournamentId = intent.getStringArrayExtra(EditFixtureActivity.EXTRA_MESSAGE_FROM_EDIT_FIXTURES)[0];
+            sportName = intent.getStringArrayExtra(EditFixtureActivity.EXTRA_MESSAGE_FROM_EDIT_FIXTURES)[1];
         }
 
         setTitle("FIXTURES - "+sportName);
@@ -121,6 +126,37 @@ public class DisplayFixturesActivity extends AppCompatActivity {
                 FixtureAdapter fixtureAdapter = new FixtureAdapter(DisplayFixturesActivity.this,fixtureDetailsArrayList);
                 fixturesListView.setAdapter(fixtureAdapter);
                 fixturesListView.setEmptyView(emptyView);
+
+                fixturesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        final FixtureDetails fixtureDetails = fixtureDetailsArrayList.get(position);
+
+                        if(userId!=null) {
+                            DatabaseReference userRef = mDatabase.child("Users").child(userId).child("tournamentStatuses").child(tournamentId);
+                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists()){
+                                        TournamentStatus tournamentStatus = dataSnapshot.getValue(TournamentStatus.class);
+                                        if(tournamentStatus.isOrganizing()){
+                                            Intent intentToEdit = new Intent(DisplayFixturesActivity.this,EditFixtureActivity.class);
+                                            String[] extras = {tournamentId,sportName,fixtureDetails.getFixtureId()};
+                                            intentToEdit.putExtra(EXTRA_MESSAGE_TO_EDIT_FIXTURES,extras);
+                                            finish();
+                                            startActivity(intentToEdit);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
+                });
             }
 
             @Override
