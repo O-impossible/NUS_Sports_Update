@@ -33,7 +33,7 @@ public class ParticipantSportOptions extends AppCompatActivity {
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-    public static final String EXTRA_MESSAGE_TO_FIXTURES = "Sport Details";
+    public static final String EXTRA_MESSAGE_TO_FIXTURES = "Sport Details (from P)";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -27,12 +27,15 @@ import java.util.Locale;
 
 public class CreateFixtureActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MESSAGE_FROM_CREATE_FIXTURES = "Tournie & Sport Details";
+
     private Spinner mTeam1Spinner;
     private Spinner mTeam2Spinner;
     private EditText mDateEditText;
     private EditText mTimeEditText;
     private EditText mVenueEditText;
     private Button createFixtureButton;
+    private Button cancelButton;
 
     private String tournamentId;
     private String sportName;
@@ -61,6 +64,7 @@ public class CreateFixtureActivity extends AppCompatActivity {
         mTimeEditText = (EditText) findViewById(R.id.add_time_text_field);
         mVenueEditText = (EditText) findViewById(R.id.add_venue_text_field);
         createFixtureButton = (Button) findViewById(R.id.create_fixture_button);
+        cancelButton = (Button) findViewById(R.id.cancel_button);
 
         setupTeam1Spinner();
         setupTeam2Spinner();
@@ -123,6 +127,16 @@ public class CreateFixtureActivity extends AppCompatActivity {
             }
         });
 
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentToDisplayFixtures2 = new Intent(CreateFixtureActivity.this,DisplayFixturesActivity.class);
+                String[] extras = {tournamentId,sportName};
+                intentToDisplayFixtures2.putExtra(EXTRA_MESSAGE_FROM_CREATE_FIXTURES,extras);
+                finish();
+                startActivity(intentToDisplayFixtures2);
+            }
+        });
     }
 
     private void createFixture() {
@@ -147,7 +161,11 @@ public class CreateFixtureActivity extends AppCompatActivity {
 
         pushId.setValue(fixtureDetails);
         Toast.makeText(this, "Fixture Created Successfully!", Toast.LENGTH_SHORT).show();
-        return;
+        Intent intentToDisplayFixtures = new Intent(CreateFixtureActivity.this,DisplayFixturesActivity.class);
+        String[] extras = {tournamentId,sportName};
+        intentToDisplayFixtures.putExtra(EXTRA_MESSAGE_FROM_CREATE_FIXTURES,extras);
+        finish();
+        startActivity(intentToDisplayFixtures);
     }
 
     private void updateLabel() {

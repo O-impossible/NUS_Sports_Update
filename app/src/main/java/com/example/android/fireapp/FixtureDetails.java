@@ -68,7 +68,7 @@ public class FixtureDetails {
         this.team2score = team2score;
     }
 
-    public Boolean getOngoing() {
+    public Boolean isOngoing() {
         return ongoing;
     }
 
