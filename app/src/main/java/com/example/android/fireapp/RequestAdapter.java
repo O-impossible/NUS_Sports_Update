@@ -133,6 +133,8 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
 
 
                 Toast.makeText(getContext(),"Requested Accepted",Toast.LENGTH_SHORT).show();
+                Log.d("tournamentStatus",tournamentStatus.toString());
+                userRef.child("tournamentStatuses").child(retrievedRequest.getTournamentId()).removeValue();
                 userRef.child("tournamentStatuses").child(retrievedRequest.getTournamentId()).setValue(tournamentStatus);
 
 

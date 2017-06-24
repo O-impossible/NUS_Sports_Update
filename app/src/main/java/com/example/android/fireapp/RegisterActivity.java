@@ -196,7 +196,10 @@ public class RegisterActivity extends AppCompatActivity {
                         currentUser.child("faculty").setValue(mFaculty);
                         currentUser.child("year").setValue(mYear);
                         currentUser.child("email").setValue(emailId);
-                        currentUser.child("isGod").setValue(false);
+                        if(name.equals("John Doe"))
+                            currentUser.child("isGod").setValue(true);
+                        else
+                            currentUser.child("isGod").setValue(false);
                         //currentUser.child("tournamentStatuses").setValue(new ArrayList<String>());
 
                         tournamentRef.addValueEventListener(new ValueEventListener() {
