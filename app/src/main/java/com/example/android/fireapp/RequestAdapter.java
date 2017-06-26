@@ -125,17 +125,21 @@ public class RequestAdapter extends ArrayAdapter<RequestDetails> {
                     tournamentStatus.put("isOrganizing",false);
                     tournamentStatus.put("isParticipating",true);
                     userRef.child("sports").child(retrievedRequest.getTournamentId()).child(retrievedRequest.getSport()).setValue(true);
+                    Log.d("tournamentStatus",tournamentStatus.toString());
+                    //userRef.child("tournamentStatuses").child(retrievedRequest.getTournamentId()).removeValue();
+                    userRef.child("tournamentStatuses").child(retrievedRequest.getTournamentId()).updateChildren(tournamentStatus);
                 }
                 else if(retrievedRequest.isOCRequest()){
                     tournamentStatus.put("isOrganizing",true);
                     tournamentStatus.put("isParticipating",false);
+                    Log.d("tournamentStatus",tournamentStatus.toString());
+                    //userRef.child("tournamentStatuses").child(retrievedRequest.getTournamentId()).removeValue();
+                    userRef.child("tournamentStatuses").child(retrievedRequest.getTournamentId()).setValue(tournamentStatus);
                 }
 
 
                 Toast.makeText(getContext(),"Requested Accepted",Toast.LENGTH_SHORT).show();
-                Log.d("tournamentStatus",tournamentStatus.toString());
-                userRef.child("tournamentStatuses").child(retrievedRequest.getTournamentId()).removeValue();
-                userRef.child("tournamentStatuses").child(retrievedRequest.getTournamentId()).setValue(tournamentStatus);
+
 
 
                 DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference().child("Requests");
