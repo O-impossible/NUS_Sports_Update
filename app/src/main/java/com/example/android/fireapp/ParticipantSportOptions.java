@@ -171,7 +171,7 @@ public class ParticipantSportOptions extends AppCompatActivity {
             public void onClick(View v) {
 //                Toast.makeText(ParticipantSportOptions.this, "Selected LockerRoom", Toast.LENGTH_SHORT).show();
 
-                Intent intentToLockerRoom = new Intent(ParticipantSportOptions.this,LockerRoomActivity.class);
+                final Intent intentToLockerRoom = new Intent(ParticipantSportOptions.this,LockerRoomActivity.class);
                 DatabaseReference userRef = mDatabase.child("Users").child(userId);
                 userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -179,7 +179,13 @@ public class ParticipantSportOptions extends AppCompatActivity {
                         UserInformation user = dataSnapshot.getValue(UserInformation.class);
                         faculty = user.getFaculty();
                         userName = user.getName();
-                        return;
+
+                        Log.d("name:",userName);
+                        Log.d("faculty:",faculty);
+                        String [] extrasToLockerRoom = {tournamentId,sportName,userId,userName,faculty};
+                        intentToLockerRoom.putExtra(EXTRA_MESSAGE_TO_LOCKERROOM,extrasToLockerRoom);
+
+                        startActivity(intentToLockerRoom);
                     }
 
                     @Override
@@ -187,11 +193,6 @@ public class ParticipantSportOptions extends AppCompatActivity {
 
                     }
                 });
-
-                String [] extras = {tournamentId,sportName,userId,userName,faculty};
-                intentToLockerRoom.putExtra(EXTRA_MESSAGE_TO_LOCKERROOM,extras);
-
-                startActivity(intentToLockerRoom);
             }
         });
 

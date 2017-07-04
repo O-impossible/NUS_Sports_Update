@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.fireapp.LockerRoomActivity">
 
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/send_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="8dp"
+        android:src="@drawable/send" />
+
+    <EditText
+        android:id="@+id/message_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/send_fab"
+        android:layout_alignParentBottom="true"
+        android:hint="Type a message ..."
+        android:textColorHint="@color/colorPrimaryDark"
+        />
+
     <ListView
         android:id="@+id/list_of_messages"
         android:layout_width="match_parent"
@@ -44,24 +64,5 @@
             />
     </RelativeLayout>
 
-
-    <EditText
-        android:id="@+id/message_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/send_fab"
-        android:layout_alignParentBottom="true"
-        android:hint="Type a message ..."
-        android:textColorHint="@color/colorPrimaryDark"
-        />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/send_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="8dp"
-        android:src="@drawable/send" />
 
 </RelativeLayout>

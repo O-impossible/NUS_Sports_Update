@@ -5,11 +5,15 @@ import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Objects;
 
 
 public class LockerRoomActivity extends AppCompatActivity {
@@ -23,7 +27,13 @@ public class LockerRoomActivity extends AppCompatActivity {
     private EditText messageInput;
     private FloatingActionButton sendFAB;
 
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference mDatabase;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        callFAB();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +48,41 @@ public class LockerRoomActivity extends AppCompatActivity {
         userName = extras[3];
         faculty = extras[4];
 
+        Log.d("tournamentID:",tournamentId);
+        Log.d("name:",userName);
+        Log.d("faculty:",faculty);
+        Log.d("sport:",sportName);
+        Log.d("checking string value:",getString(R.string.lockerroom));
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(getString(R.string.lockerroom));
         messageInput = (EditText) findViewById(R.id.message_input);
         sendFAB = (FloatingActionButton) findViewById(R.id.send_fab);
 
+        populateView();
+    }
 
+    private void populateView() {
+
+    }
+
+    private void callFAB() {
         sendFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String message = messageInput.getText().toString().trim();
                 ChatMessage chatMessage = new ChatMessage(message,userName);
-                DatabaseReference pushRef = mDatabase.child(Integer.toString(R.string.lockerroom)).child(tournamentId).child(sportName).
-                        child(faculty).push();
-                pushRef.setValue(chatMessage);
+                HashMap<String, Object> chatMessageHashMap = new HashMap<String,Object>();
+                chatMessageHashMap.put("messageText",message);
+                chatMessageHashMap.put("messageUser",userName);
+                chatMessageHashMap.put("messageTime",chatMessage.getMessageTime());
+                DatabaseReference pushedRef = mDatabase.child(tournamentId).child(sportName).child(faculty).push();
+                pushedRef.updateChildren(chatMessageHashMap);
+//                mDatabase.child(Integer.toString(R.string.lockerroom)).child(tournamentId).child(sportName).
+//                        child(faculty).updateChildren(chatMessageHashMap);
                 messageInput.setText("");
             }
         });
     }
+
+
 }
