@@ -24,7 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 public class MainActivity extends AppCompatActivity {
 
     private TextView mWelcomeUserMessage;
