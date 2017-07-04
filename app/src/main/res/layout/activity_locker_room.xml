@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.fireapp.LockerRoomActivity">
+
+    <ListView
+        android:id="@+id/list_of_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:dividerHeight="4dp"
+        android:divider="@android:color/transparent"
+        android:layout_marginBottom="16dp"
+        android:layout_above="@id/message_input"
+        >
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/empty_view_no_messages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        >
+
+        <ImageView
+            android:id="@+id/no_messages_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_messages"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/no_messages_image"
+            android:text="No messages"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="8dp"
+            />
+    </RelativeLayout>
+
+
+    <EditText
+        android:id="@+id/message_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/send_fab"
+        android:layout_alignParentBottom="true"
+        android:hint="Type a message ..."
+        android:textColorHint="@color/colorPrimaryDark"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/send_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="8dp"
+        android:src="@drawable/send" />
+
+</RelativeLayout>
