@@ -24,6 +24,9 @@ public class ParticipantSportOptions extends AppCompatActivity {
     private String sportName;
     private String userId;
 
+    private String faculty;
+    private String userName;
+
     private boolean alreadyRequested = false;
     private boolean alreadyDisplayed = false;
     private boolean returned = false;
@@ -35,6 +38,7 @@ public class ParticipantSportOptions extends AppCompatActivity {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     public static final String EXTRA_MESSAGE_TO_FIXTURES = "Sport Details (from P)";
+    public static final String EXTRA_MESSAGE_TO_LOCKERROOM = "User Details for LockerRoom";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +169,29 @@ public class ParticipantSportOptions extends AppCompatActivity {
         mLockerRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ParticipantSportOptions.this, "Selected Lockerroom", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ParticipantSportOptions.this, "Selected LockerRoom", Toast.LENGTH_SHORT).show();
+
+                Intent intentToLockerRoom = new Intent(ParticipantSportOptions.this,LockerRoomActivity.class);
+                DatabaseReference userRef = mDatabase.child("Users").child(userId);
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        UserInformation user = dataSnapshot.getValue(UserInformation.class);
+                        faculty = user.getFaculty();
+                        userName = user.getName();
+                        return;
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                String [] extras = {tournamentId,sportName,userId,userName,faculty};
+                intentToLockerRoom.putExtra(EXTRA_MESSAGE_TO_LOCKERROOM,extras);
+
+                startActivity(intentToLockerRoom);
             }
         });
 
