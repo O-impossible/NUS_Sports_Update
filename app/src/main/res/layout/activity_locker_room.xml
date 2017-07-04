@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lockerroom"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.android.fireapp.LockerRoomActivity">
@@ -14,6 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="8dp"
+        app:fabSize="mini"
         android:src="@drawable/send" />
 
     <EditText
@@ -24,6 +26,7 @@
         android:layout_alignParentBottom="true"
         android:hint="Type a message ..."
         android:textColorHint="@color/colorPrimaryDark"
+        android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
         />
 
     <ListView
@@ -34,8 +37,7 @@
         android:layout_alignParentTop="true"
         android:dividerHeight="4dp"
         android:divider="@android:color/transparent"
-        android:layout_marginBottom="16dp"
-        android:layout_above="@id/message_input"
+        android:layout_above="@id/send_fab"
         >
     </ListView>
 
