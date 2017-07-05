@@ -31,4 +31,5 @@
         completions."
     </string>
     <string name="lockerroom">LockerRoom</string>
+    <string name="chatroom">Admin ChatRoom</string>
 </resources>

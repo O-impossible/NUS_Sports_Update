@@ -56,22 +56,33 @@ public class LockerRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_locker_room);
 
         Intent intent = getIntent();
-        String [] extras = intent.getStringArrayExtra(ParticipantSportOptions.EXTRA_MESSAGE_TO_LOCKERROOM);
-        tournamentId = extras[0];
-        sportName = extras[1];
-        userId = extras[2];
-        userName = extras[3];
-        faculty = extras[4];
+        String [] extrasForLockerRoom = intent.getStringArrayExtra(ParticipantSportOptions.EXTRA_MESSAGE_TO_LOCKERROOM);
+        String [] extrasForChatRoom = intent.getStringArrayExtra(SportsListActivity.EXTRA_MESSAGE_TO_CHATROOM);
+        if(extrasForLockerRoom!=null) {
+            tournamentId = extrasForLockerRoom[0];
+            sportName = extrasForLockerRoom[1];
+            userId = extrasForLockerRoom[2];
+            userName = extrasForLockerRoom[3];
+            faculty = extrasForLockerRoom[4];
+            setTitle(faculty + "'s " + "LockerRoom - "+ sportName);
+            mDatabase = FirebaseDatabase.getInstance().getReference().child(getString(R.string.lockerroom)).child(tournamentId).
+                    child(sportName).child(faculty);
+        }
+        else {
+            tournamentId = extrasForChatRoom[0];
+            userId = extrasForChatRoom[1];
+            userName = extrasForChatRoom[2];
+            setTitle("ADMIN CHATROOM");
+            mDatabase = FirebaseDatabase.getInstance().getReference().child(getString(R.string.chatroom)).child(tournamentId);
+        }
 
-        Log.d("tournamentID:",tournamentId);
+        /*Log.d("tournamentID:",tournamentId);
         Log.d("name:",userName);
         Log.d("faculty:",faculty);
         Log.d("sport:",sportName);
         Log.d("checking string value:",getString(R.string.lockerroom));
+        */
 
-        setTitle(faculty + "'s " + "LockerRoom - "+ sportName);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child(getString(R.string.lockerroom)).child(tournamentId).
-                child(sportName).child(faculty);
         messageInput = (EditText) findViewById(R.id.message_input);
         sendFAB = (FloatingActionButton) findViewById(R.id.send_fab);
 

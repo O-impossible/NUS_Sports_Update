@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class SportsListActivity extends AppCompatActivity {
 
     private String tournamentId;
+    private String userName;
     private DatabaseReference mDatabase;
     private boolean mIsOrganizing = false;
     private FirebaseAuth mAuth;
@@ -36,6 +37,7 @@ public class SportsListActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE_TO_FIXTURES = "Sport Details";
     public static final String EXTRA_MESSAGE_TO_OPTIONS = EXTRA_MESSAGE_TO_FIXTURES;
     public static final String EXTRA_MESSAGE_TO_REQUESTS = EXTRA_MESSAGE_TO_EDIT;
+    public static final String EXTRA_MESSAGE_TO_CHATROOM = "Admin Chatroom";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,6 +254,24 @@ public class SportsListActivity extends AppCompatActivity {
         }
         else if(id == R.id.tournament_chatroom){
             //TODO: create an intent to go to the admin chatroom
+            final Intent intentToLockerRoom = new Intent(SportsListActivity.this,LockerRoomActivity.class);
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    UserInformation user = dataSnapshot.getValue(UserInformation.class);
+                    userName = user.getName();
+
+                    String [] extras = {tournamentId,userId,userName};
+                    intentToLockerRoom.putExtra(EXTRA_MESSAGE_TO_CHATROOM,extras);
+                    startActivity(intentToLockerRoom);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
 
         return true;
