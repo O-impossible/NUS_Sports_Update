@@ -66,8 +66,10 @@ public class FixtureAdapter extends ArrayAdapter<FixtureDetails> {
             scoreLayout.setVisibility(View.GONE);
         }
         else{
-            team1ScoreTextView.setText(retrievedFixture.getTeam1score());
-            team2ScoreTextView.setText(retrievedFixture.getTeam2score());
+            int team1Score = retrievedFixture.getTeam1score();
+            int team2Score = retrievedFixture.getTeam2score();
+            team1ScoreTextView.setText(Integer.toString(team1Score));
+            team2ScoreTextView.setText(Integer.toString(team2Score));
         }
 
         return listItemView;

@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Venue"
-            android:inputType="text"
+            android:inputType="text|textAutoCorrect|textCapWords"
             android:focusable="true"
             android:textAlignment="center" />
     </LinearLayout>
@@ -148,7 +148,7 @@
             android:layout_height="wrap_content"
             android:hint="SCORE"
             android:textAlignment="center"
-            android:inputType="text"
+            android:inputType="number"
             />
 
         <TextView
@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             android:hint="SCORE"
             android:textAlignment="center"
-            android:inputType="text"
+            android:inputType="number"
             />
     </LinearLayout>
     <LinearLayout

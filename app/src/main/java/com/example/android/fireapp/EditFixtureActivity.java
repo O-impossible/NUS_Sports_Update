@@ -99,8 +99,8 @@ public class EditFixtureActivity extends AppCompatActivity {
                     mDateEditText.setText(retrievedFixture.getDate());
                     mTimeEditText.setText(retrievedFixture.getTime());
                     mVenueEditText.setText(retrievedFixture.getVenue());
-                    mTeam1ScoreEditText.setText(retrievedFixture.getTeam1score());
-                    mTeam2ScoreEditText.setText(retrievedFixture.getTeam2score());
+                    mTeam1ScoreEditText.setText(Integer.toString(retrievedFixture.getTeam1score()));
+                    mTeam2ScoreEditText.setText(Integer.toString(retrievedFixture.getTeam2score()));
                     if(retrievedFixture.isOngoing()){
                         ongoingCheckbox.toggle();
                     }
@@ -205,12 +205,12 @@ public class EditFixtureActivity extends AppCompatActivity {
         fixtureDetails.put("fixtureId",fixtureId);
 
         if(ongoingCheckbox.isChecked()){
-            String team1ScoreString = mTeam1ScoreEditText.getText().toString().trim();
-            String team2ScoreString = mTeam2ScoreEditText.getText().toString().trim();
-//            int team1Score = Integer.parseInt(team1ScoreString);
-//            int team2Score = Integer.parseInt(team2ScoreString);
-            fixtureDetails.put("team1score",team1ScoreString);
-            fixtureDetails.put("team2score",team2ScoreString);
+//            String team1ScoreString = mTeam1ScoreEditText.getText().toString().trim();
+//            String team2ScoreString = mTeam2ScoreEditText.getText().toString().trim();
+            int team1Score = Integer.parseInt(mTeam1ScoreEditText.getText().toString());
+            int team2Score = Integer.parseInt(mTeam2ScoreEditText.getText().toString());
+            fixtureDetails.put("team1score",team1Score);
+            fixtureDetails.put("team2score",team2Score);
             if(TextUtils.isEmpty(mTeam1ScoreEditText.getText().toString()) || TextUtils.isEmpty(mTeam2ScoreEditText.getText().toString())){
                 Toast.makeText(this, "Please enter scores for both teams", Toast.LENGTH_SHORT).show();
                 return;

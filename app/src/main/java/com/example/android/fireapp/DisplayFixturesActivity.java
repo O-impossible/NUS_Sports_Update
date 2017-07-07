@@ -125,8 +125,10 @@ public class DisplayFixturesActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot fixtures : dataSnapshot.getChildren()){
-                        FixtureDetails retrievedFixture = fixtures.getValue(FixtureDetails.class);
-                        fixtureDetailsArrayList.add(retrievedFixture);
+                        if(dataSnapshot.exists()) {
+                            FixtureDetails retrievedFixture = fixtures.getValue(FixtureDetails.class);
+                            fixtureDetailsArrayList.add(retrievedFixture);
+                        }
                     }
                 }
                 final FixtureAdapter fixtureAdapter = new FixtureAdapter(DisplayFixturesActivity.this,fixtureDetailsArrayList);
