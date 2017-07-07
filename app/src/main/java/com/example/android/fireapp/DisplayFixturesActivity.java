@@ -1,14 +1,19 @@
 package com.example.android.fireapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +36,7 @@ public class DisplayFixturesActivity extends AppCompatActivity {
     private String userId = null;
     private String tournamentId;
     private String sportName;
+
 
     private boolean fromSportsList;
     private boolean fromParticipantOptions;
@@ -123,13 +129,13 @@ public class DisplayFixturesActivity extends AppCompatActivity {
                         fixtureDetailsArrayList.add(retrievedFixture);
                     }
                 }
-                FixtureAdapter fixtureAdapter = new FixtureAdapter(DisplayFixturesActivity.this,fixtureDetailsArrayList);
+                final FixtureAdapter fixtureAdapter = new FixtureAdapter(DisplayFixturesActivity.this,fixtureDetailsArrayList);
                 fixturesListView.setAdapter(fixtureAdapter);
                 fixturesListView.setEmptyView(emptyView);
 
                 fixturesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                         final FixtureDetails fixtureDetails = fixtureDetailsArrayList.get(position);
 
                         if(userId!=null) {
@@ -140,11 +146,60 @@ public class DisplayFixturesActivity extends AppCompatActivity {
                                     if(dataSnapshot.exists()){
                                         TournamentStatus tournamentStatus = dataSnapshot.getValue(TournamentStatus.class);
                                         if(tournamentStatus.isOrganizing()){
-                                            Intent intentToEdit = new Intent(DisplayFixturesActivity.this,EditFixtureActivity.class);
-                                            String[] extras = {tournamentId,sportName,fixtureDetails.getFixtureId()};
-                                            intentToEdit.putExtra(EXTRA_MESSAGE_TO_EDIT_FIXTURES,extras);
-                                            finish();
-                                            startActivity(intentToEdit);
+                                            PopupMenu popupMenu = new PopupMenu(DisplayFixturesActivity.this,view);
+
+                                            popupMenu.getMenuInflater().inflate(R.menu.fixtures_popup_menu,popupMenu.getMenu());
+
+                                            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                                @Override
+                                                public boolean onMenuItemClick(MenuItem item) {
+                                                    int id = item.getItemId();
+                                                    if(id == R.id.edit_fixture_menu_option){
+                                                        Intent intentToEdit = new Intent(DisplayFixturesActivity.this,EditFixtureActivity.class);
+                                                        String[] extras = {tournamentId,sportName,fixtureDetails.getFixtureId()};
+                                                        intentToEdit.putExtra(EXTRA_MESSAGE_TO_EDIT_FIXTURES,extras);
+                                                        finish();
+                                                        startActivity(intentToEdit);
+                                                    }
+                                                    if(id == R.id.delete_fixture_menu_option){
+                                                        AlertDialog.Builder builder = new AlertDialog.Builder(DisplayFixturesActivity.this);
+
+                                                        builder.setTitle("Delete Fixture");
+                                                        builder.setMessage("Are you sure you want to delete this fixture?");
+
+                                                        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                // deletes the fixture and all its contents from the realtime database
+                                                                Toast.makeText(DisplayFixturesActivity.this,"Fixture Deleted",Toast.LENGTH_SHORT).show();
+
+                                                                //remove the tournament from "Tournaments"
+                                                                DatabaseReference fixtureRef = mDatabase.child("Fixtures").child(tournamentId).child(sportName).child(fixtureDetails.getFixtureId());
+                                                                fixtureDetailsArrayList.remove(fixtureDetails);
+                                                     //           fixturesListView.setAdapter(fixtureAdapter);
+                                                                fixtureAdapter.updateAdapter(fixtureDetailsArrayList);
+                                                                fixtureRef.removeValue();
+                                                                dialog.dismiss();
+                                                            }
+                                                        });
+
+                                                        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                // Do nothing
+                                                                dialog.dismiss();
+                                                            }
+                                                        });
+
+                                                        AlertDialog alert = builder.create();
+                                                        alert.show();
+                                                    }
+                                                    return true;
+                                                }
+                                            });
+
+                                            popupMenu.show();
                                         }
                                     }
                                 }

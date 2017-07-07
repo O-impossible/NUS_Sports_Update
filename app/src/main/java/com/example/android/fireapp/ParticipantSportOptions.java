@@ -34,6 +34,7 @@ public class ParticipantSportOptions extends AppCompatActivity {
     private Button mViewFixturesButton;
     private Button mRequestToParticipateButton;
     private Button mLockerRoomButton;
+    private Button mViewParticipantsButton;
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -56,6 +57,7 @@ public class ParticipantSportOptions extends AppCompatActivity {
         mViewFixturesButton = (Button) findViewById(R.id.view_fixtures_button);
         mRequestToParticipateButton = (Button) findViewById(R.id.request_to_participate_button);
         mLockerRoomButton = (Button) findViewById(R.id.lockerroom_button);
+        mViewParticipantsButton = (Button) findViewById(R.id.view_participants_button);
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("sports").child(tournamentId);
         userRef.addValueEventListener(new ValueEventListener() {
@@ -85,6 +87,7 @@ public class ParticipantSportOptions extends AppCompatActivity {
                     if(status.isOrganizing()){
                         Log.d("isOrganizing","true");
                         mRequestToParticipateButton.setVisibility(View.GONE);
+                        mViewParticipantsButton.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -195,6 +198,13 @@ public class ParticipantSportOptions extends AppCompatActivity {
                 });
             }
         });
+
+        /*mViewParticipantsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentToViewParticipants = new Intent(ParticipantSportOptions.this,);
+            }
+        });*/
 
     }
 }

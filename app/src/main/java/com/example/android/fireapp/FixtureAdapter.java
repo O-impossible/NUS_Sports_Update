@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class FixtureAdapter extends ArrayAdapter<FixtureDetails> {
 
     private DatabaseReference fixturesRef;
+    private ArrayList<FixtureDetails> mFixturesList;
 
     private TextView team1TextView;
     private TextView team2TextView;
@@ -33,6 +34,7 @@ public class FixtureAdapter extends ArrayAdapter<FixtureDetails> {
 
     public FixtureAdapter(Activity context, ArrayList<FixtureDetails> fixtures) {
         super(context, 0, fixtures);
+        mFixturesList = fixtures;
     }
 
     @NonNull
@@ -69,5 +71,13 @@ public class FixtureAdapter extends ArrayAdapter<FixtureDetails> {
         }
 
         return listItemView;
+    }
+
+    public synchronized void updateAdapter(ArrayList<FixtureDetails> fixturesList) {
+        mFixturesList.clear();
+        mFixturesList.addAll(fixturesList);
+
+        //and call notifyDataSetChanged
+        notifyDataSetChanged();
     }
 }

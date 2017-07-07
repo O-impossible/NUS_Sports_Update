@@ -4,156 +4,156 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="#BA68C8"
-        >
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_gravity="center"
-        >
+        android:orientation="vertical">
 
-        <TextView
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:id="@+id/team1_text_view"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+            android:layout_gravity="center"
+            android:layout_margin="10dp">
 
-        <TextView
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
+            <TextView
+                android:id="@+id/team1_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="vs."
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/team2_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="vs."
-             />
+            android:layout_gravity="center"
+            android:layout_margin="4dp">
 
-        <TextView
-            android:id="@+id/team2_text_view"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date : "
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/date_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_margin="4dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time : "
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF" />
 
-        <TextView
+            <TextView
+                android:id="@+id/time_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date : "
-            android:textColor="#FFFFFF"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            android:layout_gravity="center"
+            android:layout_margin="4dp">
 
-        <TextView
-            android:id="@+id/date_text_view"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Venue : "
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/venue_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/score_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:layout_marginBottom="8dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score : "
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time : "
-            android:textColor="#FFFFFF"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            <TextView
+                android:id="@+id/team1_score_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingRight="4dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/time_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="-"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="4dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Venue : "
-            android:textColor="#FFFFFF"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-        <TextView
-            android:id="@+id/venue_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/score_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="4dp"
-        android:layout_marginBottom="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Score : "
-            android:textColor="#FFFFFF"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-        <TextView
-            android:id="@+id/team1_score_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingRight="4dp"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            />
-        <TextView
-            android:id="@+id/team2_score_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/team2_score_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
