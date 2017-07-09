@@ -75,7 +75,7 @@ public class DisplayFixturesActivity extends AppCompatActivity {
             sportName = intent.getStringArrayExtra(EditFixtureActivity.EXTRA_MESSAGE_FROM_EDIT_FIXTURES)[1];
         }
 
-        setTitle("FIXTURES - "+sportName);
+        setTitle("FIXTURES - "+sportName.toUpperCase());
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();

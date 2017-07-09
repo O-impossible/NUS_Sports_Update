@@ -11,6 +11,7 @@ public class UserInformation {
     public String name;
     public String studentNumber;
     public String faculty;
+    public String userId;
     public int year;
     public boolean isAdmin;
     public String email;
@@ -22,6 +23,13 @@ public class UserInformation {
         // Default constructor required for calls to DataSnapshot.getValue(UserInformation.class)
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public boolean isGod() {
         return isGod;
@@ -78,12 +86,4 @@ public class UserInformation {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    /*public ArrayList<String> getTournamentStatuses() {
-        return tournamentStatuses;
-    }
-
-    public void setTournamentStatuses(ArrayList<String> tournamentStatuses) {
-        this.tournamentStatuses = tournamentStatuses;
-    }*/
 }

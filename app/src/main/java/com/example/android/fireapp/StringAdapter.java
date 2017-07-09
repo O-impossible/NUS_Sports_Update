@@ -1,7 +1,6 @@
 package com.example.android.fireapp;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -9,7 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -29,6 +32,7 @@ public class StringAdapter extends ArrayAdapter {
         this.bgColor=bgColor;
     }
 
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -38,7 +42,7 @@ public class StringAdapter extends ArrayAdapter {
             listViewItem = LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
         }
 
-        String currentString = (String) getItem(position);
+        final String currentString = (String) getItem(position);
 
         TextView textView = (TextView) listViewItem.findViewById(R.id.text1);
         textView.setText(currentString);

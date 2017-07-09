@@ -64,7 +64,7 @@ public class LockerRoomActivity extends AppCompatActivity {
             userId = extrasForLockerRoom[2];
             userName = extrasForLockerRoom[3];
             faculty = extrasForLockerRoom[4];
-            setTitle(faculty + "'s " + "LockerRoom - "+ sportName);
+            setTitle(faculty.toUpperCase() + "'s " + "LOCKERROOM - "+ sportName.toUpperCase());
             mDatabase = FirebaseDatabase.getInstance().getReference().child(getString(R.string.lockerroom)).child(tournamentId).
                     child(sportName).child(faculty);
         }

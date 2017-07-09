@@ -66,6 +66,7 @@ public class CreateFixtureActivity extends AppCompatActivity {
         createFixtureButton = (Button) findViewById(R.id.create_fixture_button);
         cancelButton = (Button) findViewById(R.id.cancel_button);
 
+        setTitle("CREATE FIXTURE - " + sportName.toUpperCase());
         setupTeam1Spinner();
         setupTeam2Spinner();
 

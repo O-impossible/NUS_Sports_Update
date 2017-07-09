@@ -15,8 +15,7 @@
         android:label="NUS SPORTS UPDATE"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="NUS SPORTS UPDATE">
@@ -49,22 +48,24 @@
         <activity android:name=".ParticipantSportOptions" />
         <activity android:name=".CreateFixtureActivity" />
         <activity android:name=".EditFixtureActivity" />
-        <activity android:name=".LockerRoomActivity"></activity>
+        <activity android:name=".LockerRoomActivity" />
 
-        <!--<service
+        <!--
+        <service
             android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
-        </service>-->
+        </service>
+        -->
 
-        <service
-            android:name=".MyFirebaseInstanceIdService">
+        <service android:name=".MyFirebaseInstanceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
+        <activity android:name=".DisplayParticipantsActivity"></activity>
     </application>
 
 </manifest>

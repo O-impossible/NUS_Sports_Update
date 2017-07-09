@@ -113,7 +113,7 @@ public class SportsListActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     TournamentInformation tournamentInformation = dataSnapshot.getValue(TournamentInformation.class);
-                    setTitle(tournamentInformation.getTournamentName());
+                    setTitle(tournamentInformation.getTournamentName().toUpperCase());
                     if (tournamentInformation.hasBadminton()) {
                         sportsList.add("Badminton");
                     }

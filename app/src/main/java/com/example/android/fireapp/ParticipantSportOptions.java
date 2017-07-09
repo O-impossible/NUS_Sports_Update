@@ -40,6 +40,7 @@ public class ParticipantSportOptions extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE_TO_FIXTURES = "Sport Details (from P)";
     public static final String EXTRA_MESSAGE_TO_LOCKERROOM = "User Details for LockerRoom";
+    public static final String EXTRA_MESSAGE_TO_VIEW_PARTICIPANTS = "Extras to view participants";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class ParticipantSportOptions extends AppCompatActivity {
         sportName = extras[1];
         userId = extras[2];
 
-        setTitle(sportName);
+        setTitle(sportName.toUpperCase());
 
         mViewFixturesButton = (Button) findViewById(R.id.view_fixtures_button);
         mRequestToParticipateButton = (Button) findViewById(R.id.request_to_participate_button);
@@ -199,12 +200,15 @@ public class ParticipantSportOptions extends AppCompatActivity {
             }
         });
 
-        /*mViewParticipantsButton.setOnClickListener(new View.OnClickListener() {
+        mViewParticipantsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentToViewParticipants = new Intent(ParticipantSportOptions.this,);
+                Intent intentToViewParticipants = new Intent(ParticipantSportOptions.this,DisplayParticipantsActivity.class);
+                String [] extras = {tournamentId,sportName};
+                intentToViewParticipants.putExtra(EXTRA_MESSAGE_TO_VIEW_PARTICIPANTS,extras);
+                startActivity(intentToViewParticipants);
             }
-        });*/
+        });
 
     }
 }
