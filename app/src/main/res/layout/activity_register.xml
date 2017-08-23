@@ -87,6 +87,8 @@
 
     </LinearLayout>
 
+
+
     <EditText
         android:id="@+id/signup_email_text_field"
         android:layout_width="match_parent"
