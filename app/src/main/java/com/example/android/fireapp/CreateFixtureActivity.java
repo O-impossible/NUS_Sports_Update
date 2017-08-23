@@ -110,8 +110,18 @@ public class CreateFixtureActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(CreateFixtureActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String selectedHourString = new String();
+                        String selectedMinuteString = new String();
+                        if(selectedHour<10)
+                            selectedHourString = "0" + selectedHour;
+                        else
+                            selectedHourString = "" + selectedHour;
+                        if(selectedMinute<10)
+                            selectedMinuteString = "0" + selectedMinute;
+                        else
+                            selectedMinuteString = "" + selectedMinute;
 
-                        mTimeEditText.setText(selectedHour + ":" + selectedMinute);
+                        mTimeEditText.setText(selectedHourString + ":" + selectedMinuteString);
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -146,6 +156,11 @@ public class CreateFixtureActivity extends AppCompatActivity {
             return;
         }
 
+        if (TextUtils.isEmpty(mDateEditText.getText()) || TextUtils.isEmpty(mTimeEditText.getText()) ||
+                TextUtils.isEmpty(mVenueEditText.getText())) {
+            Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
         venue = mVenueEditText.getText().toString().trim();
         HashMap<String,Object> fixtureDetails = new HashMap<>();
         fixtureDetails.put("team1",team1);
